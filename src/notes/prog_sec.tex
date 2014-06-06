@@ -1,0 +1,27 @@
+\section{Programming Security}
+It's considered difficult to protect against social engineering.
+Some of the problem is that you questioning everyone takes time,
+training everyone takes time, and that since being sceptical takes more
+time for employees, people arent' going to do it. The best way
+to protect against it is to never trust anyone, and build autonomous systems.
+
+The problem about centralizing data is that once a breach is made, the effects
+can be more severe. If a small datasource is compromised occasionally, the
+negative impacts might still be small enough to be handled. However,
+it is easier making centralized systems safe against small crimes.
+\newline
+
+Passwords are good to authenticate, but they're easy to guess and 
+people are not good at ensuring policies for passwords. When you ask for
+secure passwords, people tend to store them in an unsafe fashion such that
+the \textbf{security at the expense of usability is usability at the expense
+of security}.
+
+In general, protocols may be defeated byy changing the environment 
+that they operate in. Most protocols make some assumptions about how
+things work - as soon as this is modified, the protocol might break.
+
+A cool form of attack: if a privileged user has "." in his path, and you
+could put in a piece of software there, like "ls", you could trick the admin
+into executing it. Since the "ls" in "." might be preferred, he will then launch
+a program with elevated privileges, that you might have put there.

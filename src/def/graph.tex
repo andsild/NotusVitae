@@ -1,0 +1,87 @@
+\section{Graphs}
+
+\begin{definition}[Arborescence]
+    an arborescence is a directed graph in which, for a vertex u called the
+    root and any other vertex v, there is exactly one directed path from u to v.
+ \end{definition}
+
+\begin{definition}[Clique]
+    A subset of vertices $C \subset V$, such that in this subgraph all nodes
+    are connected, i.e.\ there is an edge from every pair of nodes.
+\end{definition}
+
+\begin{definition}[Connected graph]
+    A graph in which, from any $v \in V$, you can reach any other $u \neq v$
+\end{definition}
+
+\begin{definition}[Directed graph]
+    Properties:
+    \begin{itemize}
+        \item $\sum\limits_{v \in V}{d(v)} = 2|E|$
+        \item $\sum\limits_{v \in V}{indegree(v)} = 
+            \sum\limits_{v \in V}{outdegree(v)}$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Eularian]\label{eularian}
+    Visit each \textit{edge} once.
+\end{definition}
+
+\begin{definition}[Hamiltonian]
+    Visit each \textit{vertex} once.
+\end{definition}
+
+\begin{definition}[Metric spaces]\label{metric}
+    See also~\nameref{semimetric}
+    Properties:
+    \begin{itemize}
+        \item $d_{u,v} = 0 \iff u = v$
+        \item $d_{u,v} = d_{v,u}$
+        \item $\forall k, d_{u,v} \leq d_{u,k} + d_{k,v}$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Minimum mean cost]
+    minimize ratio of cost of arcs (directed edges) to number of arcs
+\end{definition}
+
+\begin{definition}[MST]
+    A mininum~\nameref{spantree}, such the weight of this tree is less than
+    or equal to all other possible~\nameref{spantree}.
+\end{definition}
+
+\begin{definition}[Planar graph]
+    No edges need to cross each other.
+\end{definition}
+
+\begin{definition}[Semi-metric]\label{semimetric}
+    Like a~\nameref{metric}, without the property that
+    $d_{u,v} = 0 \iff u = v$
+\end{definition}
+
+
+\begin{definition}[Spanning tree]\label{spantree}
+    Connected, undriected graph that has all vertices and some subset
+    of edges to form a tree.
+\end{definition}
+
+\begin{definition}[Topological sort]\label{topsort}
+    Runs in O(V + E), same as DFS, although it can be supered to $O(\log_{2} n)$
+\end{definition}
+
+\begin{definition}[Tree]\label{tree}
+    Properties of a tree:
+    \begin{itemize}
+        \item in a tree, there will always be an even amount of nodes that has
+            an uneven degree.
+        \item Degree of nodes in a tree is at most twice the number of nodes
+    \end{itemize}
+\end{definition}
+
+
+
+\begin{definition}[Vertex-cover]
+    A selection of vertices such that each edge is incident to at least one
+    of them.
+\end{definition}
+

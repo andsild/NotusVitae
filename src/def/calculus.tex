@@ -1,0 +1,258 @@
+\section{Calculus}
+
+\begin{definition}[Affine]
+    $ 
+    f(x_{1}, x_{2}, \dots, x_{n}) = 
+    a_{1}x_{1}, a_{2}x_{2}, \dots a_{n}x_{n}
+    $
+\end{definition}
+
+\begin{definition}[arcsin]
+    \begin{align*}
+        \sin{y} &= x \\
+        \arcsin{x} &= \sin^{-1}{x} = y
+    \end{align*}
+
+    Properties:
+    \begin{itemize}
+        \item $\arcsin{x} = \frac{\pi}{2} - \arccos{x} = 90º - \arccos{x}$
+        \item $\cos{(\arcsin{x}} = \sin{(\arccos{x})} = \sqrt{1-x^{2}}{}$
+        \item $ x = -1 \rightarrow \arcsin{x} = -1\times\frac{\pi}{2}$
+        \item $ x = 1 \rightarrow \arcsin{x} = \frac{\pi}{2}$
+        \item $ x = 0 \rightarrow \arcsin{x} = 0$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[arccos]\label{arccos}
+    Properties:
+    \begin{itemize}
+        \item $ x = -1 \rightarrow \arccos{x} = \pi$
+        \item $ x = 1 \rightarrow \arccos{x} = 0$
+        \item $ x = 0 \rightarrow \arccos{x} = \frac{\pi}{2}$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Arc length]
+    Length of a curve when straightened out.
+\end{definition}
+\begin{definition}[arccos]
+    While cosine shows the relation between lengths in a triangle, 
+    arccos gives the angle.
+\end{definition}
+
+\begin{definition}[Arithmetic-geometric mean inequality]\label{arigeo}
+    $
+    \newline {(\prod\limits_{i = 1}^{k} a_{i})}^{1/k}
+    \leq {1 \over k} \sum\limits_{i = 1}^{k} a_{i}
+    $
+\end{definition}
+
+\begin{definition}[Bijection]
+    \begin{align}
+        S,R \text{\ are sets} \\
+        \forall{i \in S}, \exists!{f(i) \in R} \wedge \\
+        \forall{i \in R}, \exists!{f(i) \in S} \\
+    \end{align}
+\end{definition}
+
+\begin{definition}[Convolution]
+    Dictionary: a coil or twist, especially one of many.\newline
+    Informal: an expression of how a shape from one function is modified by 
+        the other.
+
+    Can also be used to smoothen a discontinous a function (making it continous 
+    on the given range). We need to normalize our g(x - $\tau$) so that we do
+    not continously increase the f(x)
+\end{definition}
+
+\begin{definition}[Continuous variables]
+    There are three types of continuous variables:
+    \begin{center}
+    \begin{description}
+        \item[Nominal] Categorized within groups: box 1, 2, 3 or 4.
+        \item[Dichotomous] Boolean, yes or no.
+        \item[Ordinal] A nominal variable, just that different groups give
+            different values. E.g.\ to like something on a scale of 1 to 10
+            gives you a ordinal range
+    \end{description}
+\end{center}
+\end{definition}
+
+\begin{definition}[Concave]
+    Let $f$ be a function defined on the interval $[x_{1}, x_{2}]$.
+    This function is concave according to the definition if, for every pair of
+    numbers a and b with $x_{1} \leq a \leq x_{2}$ and $x_{1} \leq b \leq
+    x_{2}$, the line segment from $(a,  f (a))$ to $(b,  f (b))$
+    lies on or below the function.
+
+    \begin{itemize}
+        \item The sine function is concave on the interval $[0, \pi]$
+        \item Concave if every line segment joining two point is never above
+              the graph 
+        \item Concave functions has $f\prime\prime(x) \leq 0$ in a given
+              interval 
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Differential operator]
+    An operator to do differentiation. This is mainly to abstract
+    differenentiation.
+
+\end{definition}
+
+\begin{definition}[Divergence]
+    measures the magnitude of a~\nameref{vectorfield}'s source or sink at a
+    given point, in terms of a signed scalar.
+
+    E.g.\ air can be thought of to have a point $s \text{ and } t$, where they
+    push out hot and cool air, respectively. From these points, you can create
+    a~\nameref{vectorfield} that shows how air spreads from $s \text{ and }
+    t$. The divergence measures the collected value from each of 
+    these~\nameref{vectorfield}s.
+
+    The operator for divergence is \verb|{div}|.
+
+    Given vector field $F = Ui, Vj, Wk$:
+    \begin{align}
+            div \textbf{F} = \nabla \cdot F = 
+            \frac{\partial{U}}{\partial{x}}+
+            \frac{\partial{V}}{\partial{y}} +
+            \frac{\partial{W}}{\partial{z}}
+    \end{align}
+
+\end{definition}
+
+\begin{definition}[Elementary function]
+    In mathematics, an elementary function is a function of one variable built
+    from a finite number of exponentials, logarithms, constants, and $nth$ roots
+    through composition and combinations using the four elementary operations
+    $(+ – × ÷)$.
+
+\end{definition}
+
+\begin{definition}[Extreme point]
+    A point furthest away from something.
+\end{definition}
+
+\begin{definition}[Field]
+    A physcial quantity that has a value for each point in space and time.
+\end{definition}
+
+\begin{definition}[Flow]
+    Motion of particles in a given set.
+\end{definition}
+
+\begin{definition}[Generalized function]
+   A distribution without steps, i.e.\ it is continious. 
+\end{definition}
+
+\begin{definition}[Harmonic numbers]
+    $H_{n} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + {1}{n} =
+    {\sum\limits_{k = 1}^{k}} \frac{1}{k} \simeq \ln n$
+\end{definition}
+
+\begin{definition}[Heavyside Step Function]
+    $$
+    H(x) = \left\{
+            \begin{array}{l l}
+                0 & \text{for} x < 0 \\
+                \frac{1}{2} & x = 0 \\
+                1 & \text{for} x > 0 \\
+            \end{array}
+        \right.
+    $$
+\end{definition}
+
+\begin{definition}[Identity function]
+    $\forall{x}, f(x) = x$
+\end{definition}
+
+\begin{definition}[Integral]
+    The ``reverse'' to a derivate. 
+
+    \begin{align}
+        \int_{a}^{b}x^{n} dx = \frac{x^{n+1}}{n+1} + C \\
+    \end{align}
+
+\end{definition}
+
+\begin{definition}[Law of cosines]
+    \begin{align*}
+        v \cdot u = |v||u|\cos{\theta} \\
+    \end{align*}
+    Note that if $v, u$ are unit vectors, their lengths are both 1.
+    We can then rewrite the expression as
+    \begin{align*}
+        v \cdot u &= \cos{\theta} \\
+        \arccos{(v \cdot u)} &= \theta
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Laplace operator]
+    Transform a function of $f$ of $t$ to a function $f$ of $s$
+\end{definition}
+
+\begin{definition}[Laplacian Matrix]
+    sometimes called admittance matrix, Kirchhoff matrix or discrete Laplacian,
+    is a matrix representation of a graph.
+
+\end{definition}
+
+\begin{definition}[Line integral]
+    An integral where the function to be integrated is along a curve.
+    The function is usually a~\nameref{vectorfield} or~\nameref{scalarfield}.
+
+\end{definition}
+
+\begin{definition}[Partial derivative]
+    Given a function $f$ with multiple parameters, a partial derivative is a
+    derivative with respect to one of those variables.
+
+    Partial derivatives are often denoted by $\partial$.
+
+    To use partial derivation, you often assume that the other variables are 
+    constants. Otherwise, there is an infinite number of tangent lines at
+    any point, so you will have to have some range on the tangents.
+
+\end{definition}
+
+\begin{definition}[Parameterization]
+    Represent a curve as a function.
+    \begin{align}
+        x = \cos{t} \\
+        y = \sin{t}
+    \end{align}
+    is the parametric representation of a unit circle.
+\end{definition}
+
+\begin{definition}[Partial differential equation]
+    A set of variables, and equations that show how they are all linked 
+    together.
+\end{definition}
+
+\begin{definition}[Rectangle function]
+    $$
+    \Pi(x) = \left\{
+            \begin{array}{l l}
+                0 & \text{for} x > \frac{1}{2} \\
+                \frac{1}{2} & \text{for} x = \frac{1}{2} \\
+                1 & \text{for} x < \frac{1}{2} \\
+            \end{array}
+        \right.
+    $$
+\end{definition}
+
+\begin{definition}[Riemanns sum]
+    Sum from an integral. Divide the area under/over a curve into rectangles
+    or trapezoids, and sum together their area. The smaller the shapes, the
+    better.
+\end{definition}
+
+\begin{definition}[Standard form]
+    To write a number as a power of 10.
+\end{definition}
+
+\begin{definition}[Vector Field]\label{vectorfield}
+    An assigment of direction for a given set of points in an euclidian space.
+    E.g.\ select every (10n, 10n) pixels in an image and get their derivative.
+\end{definition}

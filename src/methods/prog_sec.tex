@@ -1,0 +1,68 @@
+\section{Programming Security}
+
+\subsection{Challenge-Response}\label{chalres}
+You insert a car key into a car engine. The engine would now like to know
+that this key is valid.
+
+Let $K$ be the key, and $E$ the engine. Then,:
+\begin{gather}
+	\begin{align}
+		&E \rightarrow K: N \\
+		&K \rightarrow E: \{E, N\}_{K}
+	\end{align}
+\end{gather}
+
+Here, N is a challenge sent by the engine to the key in step (1).
+The key responds by encrypting the text. Iff the engine can decrypt
+and get valid number, will it start.
+
+
+\subsection{Needham-Schroeder Protocol}
+A primitive, three-way~\nameref{keydistribution} process. Also known
+to inspire Kerberos%
+\footnote{originally from Greek/Roman mythology, a three-headed dog, or "hellhound",
+	which guards the entrance of Hades.},
+the security protocol in windows. The word \textit{primitive} is used to 
+emphasize that the protocol comes from an age where attacks were
+mostly thought of as external-to-internal penetrations, i.e.\
+one needs to assume that attacks come from external networks,
+by people without means of authentication. Hence, the protocol
+fails to defend against users of it's own system.
+
+Having defined key-distribution in section~\ref{secword}, the following should 
+be somewhat intuitive:
+\setcounter{equation}{0}
+\begin{gather}
+	\begin{align}
+		&A \rightarrow S: A,B,N_{A}  \\
+		&S \rightarrow A: \{N_A, K_{AB}, B, \{K_{AB}, A\}_{K_{BS}}\}_{K_{AS}} \\ 
+		&A \rightarrow B: \{K_{AB}, A\}_{K_{BS}} \\ 
+		&B \rightarrow A: \{N_B\}_{K_{AB}} \\
+		&A \rightarrow B: \{N_B-1\}_{K_{AB}}
+	\end{align}
+\end{gather}
+The difference from plain~\nameref{keydistribution} is that we here introduce the
+concept of \nameref{nonce}s.
+In step 1, Alices attaches her nonce $N_{A}$ when talking to Sam.
+The nonce will be used in Sam's reply. That way, Alice can know that
+she is not recieving an old/corrupted message.
+
+The entitiy $\kappa = $ $\{K_{AB}, A\}_{K_{BS}}$ represents the the shared key 
+between Alice and Bob, encrypted such that only Bob can read it (denoted by the
+subscript $_{K_{BS}}$).
+$K_{AB}$ is the key, and the $A$ is included such that Bob knows it is 
+inteded for his use to Alice.
+In step 3, Alice sends $\kappa$ to Bob. Bob can decrypt with his key, given
+to him earlier by Sam. Finally, to ensure that no data has been corrupted
+by Eve or other errors, the last two steps verify the legimiticay of the keys.
+Should Alice fail to return back $N_{B} - 1$, that is, a nonce from Bob - 1,
+then Bob can know that he is not talking to a valid user.
+
+One easy to understand flaw in this system is that if someone is able 
+to obtain Alice's identifier, they could easily impersonate Alice. 
+The only required step is to contact Sam, get keys, and then communicate.
+Alice cannot be aware of this since she never initiated the requests.
+To revoke the damage done, Sam would have to keep logs of every issued key
+and thereafter alert everyone who has recieved Alice's key that she 
+was compromised.
+

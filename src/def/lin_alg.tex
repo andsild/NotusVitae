@@ -1,0 +1,188 @@
+\section{Linear Algebra}
+
+\begin{definition}[Basis]
+    Given a set of vectors in $\mathbf{R}^{n}, V$, which is linearly
+    independent, the set $V$ is a \textit{basis} if you can span 
+    $\mathbf{R}^{n}$ using $V$.
+\end{definition}
+
+\begin{definition}[Column space]
+    All linear combinations of the columns of a matrix $A$.
+\end{definition}
+
+\begin{definition}[Diagonal Dominance]
+    $\forall{i}, \exists{i} A_{i, i}, \forall i, \iff A_{i,i} \geq \sum\limits_{j = 0, j\neq i}^{m}$,
+    then matrix $A$ is DD.
+\end{definition}
+
+\begin{definition}[Dotting matrices]
+    \includegraphics[scale=0.3]{mm.png}
+\end{definition}
+
+\begin{definition}[Eigenvector]\label{eigen}
+    Given a square matrix A, when A is multiplied with an eigenvector $v$,
+    the resulting matrix A${^\prime}$ is a multiple of $v$.
+    The multipe is denoted by $\lambda$ and is called an eigenvalue.
+    So, $Av = \lambda v$
+
+\end{definition}
+
+\begin{definition}[Gaussian Elimination]
+    AKA ``Row reduction''. Add row $x$ to row $y, y \neq x$, to reduce $y$ to 
+    zeroes.
+
+\end{definition}
+
+\begin{definition}[Inverse]
+    For a matrix $A \in \mathbf{R}^{2x2}$:
+    $A^{-1} = \frac{1}{|A|}
+        \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix}
+    = \frac{1}{ad - bc}
+        \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix}
+    $\\
+    For a matrix $A \in \mathbf{R}^{3x3}$: bcacab
+
+    Properties:
+    \begin{itemize}
+        \item $(A^{-1})^{-1} = A$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Kernel]
+    For a vector space given by a~\nameref{lintrans}, a kernel is the set
+    of vectors $v \in V$, s.t. $T(u) = 0$.
+\end{definition}
+
+\begin{definition}[Length of Vector]\label{vectorlength}
+    For a vector 
+    \begin{align*}
+        v = [a_{1}, a_{2}, \dots , a_{n}] \\
+        |v| = \sqrt{a^{2}_{1} + a^{2}_{2} + \dots + a^{2}_{n}}{}
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Linear dependence]
+    For $V = {v_{1}, \dots, v_{n}}$, and $\forall v, v is vector$,
+    if none of the vectors in V can be written as a linear combination
+    from the other vectors in V, the set is linearly independent.
+\end{definition}
+
+\begin{definition}[Linear transformation]\label{lintrans}
+    Take a vector space into another, s.t.\
+    \begin{align}
+        T(u + v) = T(u) + T(v) &\forall u,v \in v \\
+        T(cu) = cT(u) &\forall u \in V
+    \end{align}
+\end{definition}
+
+\begin{definition}[Normalization of vectors]
+    $ \hat{X} \equiv \frac{X}{|X|} $, where $|x|$ is the~\nameref{vectorlength}
+    $X$ is, in this case, evaluated as the additive sum of it's entries.
+\end{definition}
+
+\begin{definition}[Null space]
+    Given a matrix $A$, if you solve for that each row = 0,
+    all possible values for each $x$ makes out the Null space.
+
+    Note that here it is apossible to get free variables for 
+    some x, and bound to others.
+
+\end{definition}
+
+
+
+\begin{definition}[Orthogonal]\label{orthogonal}
+    Two lines that intersect each other at 90 degrees.\\
+    \begin{itemize}
+        \item Orthogonal matrices preserve dot products:
+        given two vectors $u$, and $v$, and an orthogonal matrix Q,
+        the following is true:
+        $u \times v = Qu \times Qv$
+        \item The determinant of an orthogonal matrix is always 1 or -1
+        \item The transpose of $Q$ is equal to it's inverse, hence:
+            $Q \times Q^{T} = I$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Perpendicular]
+    Similar to~\nameref{orthogonal}, but with lines.
+\end{definition}
+
+\begin{definition}[Plane]
+    A flat, two-dimensional surface
+\end{definition}
+
+\begin{definition}[Positive semidefninite matrix]
+    Properties:
+    \begin{itemize}
+        \item Nonnegative~\nameref{eigen}s
+        \item $X = V^{T}V$ for some $V \in \mathbf{R}^{mxn}$
+        \item $X = \sum\limits_{i=1}^{m}\lambda_{i}w_{i}w^{t}_{i}$ 
+            for some $\lambda_{i} \geq 0$ and vectors $w_{i} \in \mathbf{R}^{n}$
+            such that $w^{T}_{i}w = 1$ and $w^{T}_{i}w_{j} = 0$
+
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Projection]
+    define a vector $v$ and $u$.
+    \begin{align*}
+        L &= \left\{cv | c \in \mathbf{R} \right\}  \\
+        proj(v) &= l \in L \text{\ such that\ } u - proj(v) 
+        \text{\ is~\nameref{orthogonal} to l}  \\
+        \textit{I.e., } proj(v) &= cv, c \in \mathbf{R}
+    \end{align*}
+
+    Properties:
+    \begin{itemize}
+        \item $proj(v) = proj(v)^{2}$
+        \item Linear independence on $u, v$ also relates for $v - proj(v), u$
+        \item adding $proj(v)$ to $v$ gives you $u$
+    \end{itemize}
+
+\end{definition}
+
+\begin{definition}[Span of vectors]\label{vectorspan}
+    All linear combinations of a set of vectors.
+    \begin{align*}
+        V &= \left\{v_{1}, \dots, v_n\right\} \\
+        C &= \left\{c \in C | \mathbf{R}\right\} \\
+        span &= c_{1}v_{1} + \dots + c_{n}v_{n}
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Symmetric]
+    \begin{itemize}
+        \item Length of rows is equal
+        \item The transpose is equal to the originl
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Tensor]
+    Geometric objects that describe linear relations between vectors or scalars.
+\end{definition}
+
+\begin{definition}[Trace]
+    Sum of all diagonal entries in a matrix.
+    $A_{11} + A_{22} + A_{nn}$
+\end{definition}
+
+\begin{definition}[Transpose]
+    Take column $i$ and make it into a column. Repeat.
+\end{definition}
+
+\begin{definition}[Unit vector]
+    A vector who's length is 1.
+\end{definition}
+
+
+\begin{definition}[vector length]
+    number of "steps" in a vector
+\end{definition}
+

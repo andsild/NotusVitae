@@ -1,0 +1,105 @@
+\section{Algorithms}
+
+\subsection{Cristofeledes algorithm}
+Objective: solve TSP with $\frac{3}{2}$-approximation
+\begin{enumerate}
+    \item Construct an MST
+    \item Extract the odd degree vertices
+    \item Find a matching, using odd degree vertex from (2)
+    \item Combine the edges from the tree with those in the matching
+    \item Form a eularian circuit
+    \item Short the the traversal path to form a hamiltonian cycle
+\end{enumerate}
+
+\subsection{Double-tree algorithm}
+2-approximation
+\begin{enumerate}
+    \item Construct MST
+    \item Give each node a redundant entry (graph can now be traversed like
+            an~\nameref{eularian} graph)
+    \item Traverse the nodes from start to finish(DFS), but only retain the first
+        time occurence of a city
+\end{enumerate}
+
+\subsection{Dijkstra}
+Assign all nodes distance = $\infty$
+Start at given node $s$. Assign all neighboring nodes their distance from $s$
+to $n$. Proceed to the lowest cost. Repeat. Whenever a better match is found,
+use the new path instead. The result is a path from $s$ to $t$, or an MST.
+
+\subsection{K-center}
+2-approximation. A form of clustering.
+\begin{enumerate}
+    \item Pick arbitrary $i \in V$
+    \item $S \rightarrow \left\{i\right\}$
+    \item pick other node furthest away from k, add to $S$
+    \item repeat, furthest away from all previous picked nodes.
+\end{enumerate}
+
+\subsection{Kruskal's algorithm}
+Always choose cheapest edge that does not include two pre-discovered nodes.
+Returns MST.
+
+\subsection{Nearest addition}
+2-approximation
+\begin{enumerate}
+    \item Find two closest cities
+    \item Traverse from i to j and back
+    \item Repeat, consider from each node
+\end{enumerate}
+
+\subsection{Prim's algorithm}
+Start at a given node $s$. Choose the cheapest edge. 
+Now repeat, just that you consider $s$ and the node you added. Etc.
+Never choose an edge that leads to a pre-discovered vertex.
+
+\subsection{List scheduling algorithm}\label{listschedule}
+    Whenever a machine is idle, assign it a job.
+    This algorithm runs $\leq 2\times OPT$.
+
+    \begin{proof}
+        Note that $OPT = \frac{\sum{p_{i}}}{m}$
+        We know that the last job, $l$, starts at time $t$. Since we've always
+        assigned jobs whenever we could, that means that all machines have 
+        so far been busy. Hence we know:
+        $$
+            t \leq \frac{\sum{p_{j} - p_{l}}}{m} \leq OPT - \frac{p_{l}}{m}
+        $$
+        Since $OPT$ is lower bounded as the average work done by each machine.
+
+        We can now bound the maximal finishing time: 
+        $$
+            C_{max} \leq t + p_{l} \leq OPT + p_{l}\times (1 - \frac{1}{m}) 
+            \leq (2 - \frac{1}{m})\times OPT
+        $$
+    \end{proof}
+
+    \subsection{Longest processing time rule}\label{srpt}
+    As~\nameref{listschedule}, just that you first sort the jobs in order of 
+    length; put the longest jobs first. This algorithm has approximation ratio
+    $\frac{4}{3} \times OPT$
+
+    \subsection{Shortest remaining time, SRFT}\label{sprt}
+    In this scheduling algorithm, the process with the smallest amount of time
+    remaining until completion is selected to execute.
+    This algorithm is applied to~\nameref{pre-emptive} schedules
+
+\subsection{Knapsack DP}
+    Fill out two arrays of $n \times B$, where $B$ is the capacity of 
+    the knapsack. In row $i$, consider item $b_{i}$ against the capacity given
+    in column $j$. If $j \geq w_{i}$, compare the value of $A_{i,j}$ to 
+    $A_{i-1,j}$ and use whichever is greater. For all cases where $b_{i} \geq
+    j$, consider which is better: to use $b_{i} + A_{i-1,j-w_{i}}$,
+    or retain the value above. The last equation is: to use current item + 
+    whatever we can fit in on the remaining weight, given by the line above.
+    Make sure to simeoltaneously maintain a ``keep-array'' that gives 1 or zero,
+    indicating whether or not you've used item $b_{i}$.
+
+    In backtracking, start in the lower right of the keep array.
+    Whenever you get a 1, include item $i$ and decrement $i$ and $j$ by one.
+    Whenever you get a zero, decrement $i$ alone.
+
+    The above mentioned runs in $O(n\times W)$, where $W$ is the capasity of 
+    the knapsack. The algorithm is \textit{exact}, but pseudopolynomial, since
+    $W = \sum{w_{i}}$, which in binary becomes $\log_{2} W$, which hence 
+    becomes $O(\log_{2}W^{n})$. An~\nameref{FPTAS} exists, see book.

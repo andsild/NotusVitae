@@ -1,0 +1,83 @@
+\documentclass{report}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{wrapfig}
+\usepackage{epigraph}
+\usepackage{etoolbox}
+
+\renewcommand*\rmdefault{iwona}
+
+
+\setlength\epigraphwidth{15cm}
+\setlength\epigraphrule{0pt} % line between quote and quoter
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{} % italics 
+\makeatother
+
+% To sort the definitions:
+% awk '/^\\begin\{(definition|theorem|proof)\}/,/^\\end{(definition|theorem|proof)}/ { printf "%s\0",$0} /^\\end{definition}/ { print ""}  END {print ""}' PENSUM.tex | sort -t'\0' | tr '\0 ' '\n' 
+
+\pagestyle{fancy}
+\pagenumbering{Roman}
+\setcounter{tocdepth}{1}
+\graphicspath{{src/fig/}}
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}                                                                                  
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{definition}{Definition}
+\newtheorem*{observation}{Observation}
+\newtheorem{prop}[theorem]{Proposition}
+
+\titleformat{\subsubsection}[runin]% runin puts it in the same paragraph
+       {\normalfont\bfseries}% formatting commands to apply to the whole heading
+       {\thesubsubsection}% the label and number
+       {0.5em}% space between label/number and subsection title
+       {}% formatting commands applied just to subsection title
+       []% punctuation or other commands following subsection title
+\author{Anders Sildnes\\
+	NTNU}
+\date{\today}
+
+
+\begin{document}
+    \begin{abstract}
+     An overview of algorithms, words and definitions from my studies as a 
+     computer scientist BSc, with an interest in algorithms.
+
+    Note that this document is not intended to be a \textit{public friendly}
+    document; it is written by one author and for one author, only. But you
+    are still free to read.
+    \end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\pagebreak
+
+\chapter{Words and Definitions}
+\include{src/def/algorithm}
+\include{src/def/calculus}
+\include{src/def/graph}
+\include{src/def/image}
+\include{src/def/lin_alg}
+\include{src/def/prog_sec}
+\include{src/def/statistics}
+
+\chapter{Algorithms and Methods}
+\include{src/methods/algorithms}
+\include{src/methods/prog_sec}
+
+\chapter{Notes and Thoughts}
+\include{src/notes/algorithms}
+\include{src/notes/prog_sec}
+
+\end{document}

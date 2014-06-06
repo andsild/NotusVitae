@@ -1,0 +1,133 @@
+\section{Algorithms}\label{section:word}
+
+\begin{definition}[Approximation algorithm]
+    Find approximate solutions to~\nameref{optproblem}
+\end{definition}
+
+\begin{definition}[Asymptotic Polynomial-time Approximation Scheme, APTAS]
+\label{APTAS}
+    A family of algorithms, and a constant $c$ such that all solutions has an
+    approximation of $(1 + \epsilon)\times{OPT} + c$ for minimization problems.
+\end{definition}
+
+
+\begin{definition}[Bin-packing]
+    A series of algorithms to learn how to distribute $n$ numbers into $k$ bins.
+    First-fit, best-fit, worst-fit (stack into where there is most free space),
+    best-fit, etc.
+\end{definition}
+
+\begin{definition}[Complimentary slackness]
+    Given an optimal solution to a linear program,
+    $Z_{LP}$ and it's dual $Y_{LP}$, with $x_{1}, x_{2}, \dots x_{n}$ and
+    $y_{1}, y_{2}, \dots y_{n}$ respecively, with
+    $w_{1}, w_{2}, \dots w_{n}$ and $z_{1}, z_{2}, \dots z_{n}$  as slack
+    variables for each solution, respectively,
+    then $\forall x, x_{i}z_{i} = 0$ and $\forall y, y_{i} w_{i} = 0$
+
+    This necessary condition for optimality conveys a fairly simple economic
+    principle.  In standard form (when maximizing), if there is slack in a
+    constrained primal resource (i.e., there are "leftovers"),
+    then additional quantities of that resource must have no value. 
+\end{definition}
+
+\begin{definition}[Difference heuristic and approximation]
+    While an heurisitc makes a choice, without a guarantee of optimality,
+    an approximation can make a choice and know that this choice will render
+    a solution within a factor of OPT.
+\end{definition}
+
+\begin{definition}[EDD]\label{EDD}
+    Earliest Due Date
+\end{definition}
+
+\begin{definition}[F-approximation]
+    Also referred to as a linear approximation, using a function f,
+    which is affine.
+\end{definition}
+
+\begin{definition}[FPTAS, fully polynomial approximation scheme]\label{FPTAS}
+    As in~\nameref{PTAS}, just $\frac{1}{\epsilon}$.
+    The algoritm is required to be polynomial both in running time and problem
+    size.
+
+    Note that strongly NP-complete problems do not have any FPTAS.
+\end{definition}
+
+\begin{definition}[Integrality gap]\label{integralitygap}
+    The biggest difference between an IP and LP
+\end{definition}
+
+\begin{definition}[Makespan]
+    The total length of a schedule; from 0 to $C_{max}$
+\end{definition}
+
+\begin{definition}[$\tilde{O}$]\label{otilde}
+    Given function $f(x)$, $\tilde{O}(f(x)) = O(f(x)\cdot{\log^{k}{f(x)}}$
+\end{definition}
+
+\begin{definition}[Optimization problem]\label{optproblem}
+    To find the best solution of $n$ feasible solutions.
+\end{definition}
+
+\begin{definition}[Perfect matching]
+    A collection $E^{\prime} \subseteq E$ of edges in a graph 
+    $G = (V,E)$, such that $\forall v \in V$, are connected 
+    from $E^{\prime}$ only once.
+\end{definition}
+
+
+\begin{definition}[Pre-empty schedule]\label{pre-emptive}
+    You can interrupt task and re-continue them.
+\end{definition}
+
+
+\begin{definition}[PTAS, Polynomial-time approximation scheme]\label{PTAS}
+    Given an optimization problem (e.g.\ an NP-problem) and a parameter 
+    $\epsilon$, produce a solution within (($1 + \epsilon) \times OPT$)
+    $\epsilon > 0$
+
+    E.g.\ for the traveling salesman, a tour would be of length max 
+    $(1 + \epsilon) \times L$, with $L$ being the length of the tour
+
+    Note that for minimization, there is $1 + \epsilon$, and for maximization,
+    there is $1 - \epsilon$
+    
+    If you have a scheme with $(1 \pm \epsilon) \times OPT + \kappa$, then 
+    it is not under PTAS.\ PTAS only handles the former part, $(1 \pm \epsilon)$
+
+    For MAX SNP, there does not exist polynomial approximation schemes
+\end{definition}
+
+\begin{definition}[$\rho$-approximation]
+    Polynomial algorithm that is guaranteed to have objective function
+    to OPT within $\rho$ of
+    optimum (not the ($1 + \epsilon$) of~\nameref{PTAS}).
+\end{definition}
+
+\begin{definition}[Scheduling]
+    See~\nameref{srpt},
+    \begin{itemize}
+        \item \textbf{$P_{i}$} = time to do a job $i$
+        \item \textbf{$R_{i}$} = earliest time a job $i$ can start
+        \item \textbf{$C_{i}$} = time of completion for job $i$
+        \item \textbf{$D_{i}$} = due date for job $i$
+        \item \textbf{$L_{i}$} = $C_{i} - D_{i}$
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Strong duality]
+    The optimal value of the dual is equal to that of the primal linear program.
+
+    $ \sum{y^{*}_{i}} = \sum{w_{i}x_{i}}$
+\end{definition}
+
+\begin{definition}[Weak duality property]
+    No dual program has a solution greater than the optimal of the primal
+    linear program
+\end{definition}
+
+\begin{definition}[$\alpha$ approximation]
+    Produce a solution who's value is within a factor of $\alpha$ 
+    of the optimal.
+\end{definition}
