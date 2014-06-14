@@ -55,6 +55,13 @@
     \end{align}
 \end{definition}
 
+\begin{definition}[Boundary value problem]
+    A differential equation with additional restrains. A solution to a boundary
+    value problem is a solution to the differential equation which also
+    satisfies the boundary conditions.
+    
+\end{definition}
+
 \begin{definition}[Convolution]
     Dictionary: a coil or twist, especially one of many.\newline
     Informal: an expression of how a shape from one function is modified by 
@@ -63,6 +70,18 @@
     Can also be used to smoothen a discontinous a function (making it continous 
     on the given range). We need to normalize our g(x - $\tau$) so that we do
     not continously increase the f(x)
+\end{definition}
+
+\begin{definition}[Continuous]
+In mathematics, a continuous function is a function for which
+"small" changes in the input result in "small" changes in the output.
+
+As an example, consider the function h(t), which describes the height of a
+growing flower at time t. This function is continuous. By contrast, if M(t)
+denotes the amount of money in a bank account at time t, then the function
+jumps whenever money is deposited or withdrawn, so the function M(t) is
+discontinuous.
+
 \end{definition}
 
 \begin{definition}[Continuous variables]
@@ -94,13 +113,24 @@
     \end{itemize}
 \end{definition}
 
+\begin{definition}[Congruence]
+    Similar shape and growth, just different scalar / rotation.
+\end{definition}
+
 \begin{definition}[Differential operator]
     An operator to do differentiation. This is mainly to abstract
     differenentiation.
 
 \end{definition}
 
-\begin{definition}[Divergence]
+\begin{definition}[Discretization]
+    In mathematics, discretization concerns the process of transferring
+    continuous models and equations into discrete counterparts. 
+    AKA\ smoothening curves to avoid jumps.
+
+\end{definition}
+
+\begin{definition}[Divergence]\label{divergence}
     measures the magnitude of a~\nameref{vectorfield}'s source or sink at a
     given point, in terms of a signed scalar.
 
@@ -138,6 +168,17 @@
     A physcial quantity that has a value for each point in space and time.
 \end{definition}
 
+\begin{definition}[Finite difference]
+    The difference in a function for $f(x + a) - f(x + b)$.
+
+    There are three types:
+    \begin{description}
+        \item[Forward] is of the form $\bigtriangleup{f}(x) = f(x + h) - f(x)$
+        \item[Backward] is of the form $\nabla{f}(x) = f(x) - f(x - h)$
+        \item[Centered] is of the form $\delta{f}(x) = f(x + \frac{1}{2}h) - f(x - \frac{1}{2}h)$
+    \end{description}
+\end{definition}
+
 \begin{definition}[Flow]
     Motion of particles in a given set.
 \end{definition}
@@ -161,6 +202,10 @@
             \end{array}
         \right.
     $$
+\end{definition}
+
+\begin{definition}[Hyperbolic]
+    Two curves that kind of face each other like bananas.
 \end{definition}
 
 \begin{definition}[Identity function]
@@ -190,6 +235,9 @@
 
 \begin{definition}[Laplace operator]
     Transform a function of $f$ of $t$ to a function $f$ of $s$
+
+    A differential operator given by the~\nameref{divergence} of a gradient 
+    function in euclidian space.
 \end{definition}
 
 \begin{definition}[Laplacian Matrix]
@@ -198,11 +246,32 @@
 
 \end{definition}
 
+\begin{definition}[Lattice]
+    In mathematics, especially in geometry and group theory, a lattice in
+    $\mathbf{R}^n$ is a discrete subgroup of $\mathbf{R}^n$ which spans the real
+    vector space $\mathbf{R}^n$. Every lattice in $\mathbf{R}^n$ can be generated
+    from a basis for the vector space by forming all linear combinations with
+    integer coefficients. 
+
+\end{definition}
+
 \begin{definition}[Line integral]
     An integral where the function to be integrated is along a curve.
     The function is usually a~\nameref{vectorfield} or~\nameref{scalarfield}.
 
 \end{definition}
+
+\begin{definition}[Parabola]
+    A U-shaped, 2d, symmetrical curve.
+\end{definition}
+
+\begin{definition}[Parameterization]
+    Represent a curve as a function.
+    \begin{align}
+        x = \cos{t} \\
+        y = \sin{t}
+    \end{align}
+    is the parametric representation of a unit circle.
 
 \begin{definition}[Partial derivative]
     Given a function $f$ with multiple parameters, a partial derivative is a
@@ -216,13 +285,6 @@
 
 \end{definition}
 
-\begin{definition}[Parameterization]
-    Represent a curve as a function.
-    \begin{align}
-        x = \cos{t} \\
-        y = \sin{t}
-    \end{align}
-    is the parametric representation of a unit circle.
 \end{definition}
 
 \begin{definition}[Partial differential equation]

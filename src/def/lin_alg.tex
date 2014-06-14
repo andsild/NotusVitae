@@ -6,12 +6,24 @@
     $\mathbf{R}^{n}$ using $V$.
 \end{definition}
 
+\begin{definition}[Condition number]
+    A measure of how the output value for a function changes respective to 
+    input variables.
+\end{definition}
+
 \begin{definition}[Column space]
     All linear combinations of the columns of a matrix $A$.
 \end{definition}
 
+\begin{definition}[Consistent]
+    $\iff$ the rightmost column of an augmented matrix is not a pivot column.
+    I.e.\ in a 3x4 matrix, if the last row is zero and 2nd column has pivot
+    column, then the system is still consistent.
+\end{definition}
+
 \begin{definition}[Diagonal Dominance]
-    $\forall{i}, \exists{i} A_{i, i}, \forall i, \iff A_{i,i} \geq \sum\limits_{j = 0, j\neq i}^{m}$,
+    $\forall{i}, \exists{i} A_{i, i}, \forall i, \iff A_{i,i} 
+    \geq \sum\limits_{j = 0, j\neq i}^{m}$,
     then matrix $A$ is DD.
 \end{definition}
 
@@ -80,6 +92,11 @@
         T(cu) = cT(u) &\forall u \in V
     \end{align}
 \end{definition}
+
+\begin{definition}[Norm]
+    The ``length'' of a vector, just remember to sum up over all dimensions.
+    Each number is raised to $n$, and the total sum is then raised to
+$\frac{1}{p}$.  \end{definition}
 
 \begin{definition}[Normalization of vectors]
     $ \hat{X} \equiv \frac{X}{|X|} $, where $|x|$ is the~\nameref{vectorlength}
@@ -155,6 +172,10 @@
         C &= \left\{c \in C | \mathbf{R}\right\} \\
         span &= c_{1}v_{1} + \dots + c_{n}v_{n}
     \end{align*}
+\end{definition}
+
+\begin{definition}[Spectral Radius]
+    The largest eigenvalue of a matrix.
 \end{definition}
 
 \begin{definition}[Symmetric]
