@@ -1,5 +1,11 @@
 \section{Image Processing}
 
+\begin{definition}[Anisotropy]\label{anisotropy}
+    Directionally dependent. Opposite of~\nameref{isotropy}.
+    Example is to apply a filter to a set of images - consider
+    what would happen if one image was tilted.
+\end{definition}
+
 \begin{definition}[Anisotropic diffusion]
     also called Perona-Malik diffusion, is a technique aiming at reducing image
     noise without removing significant parts of the image content, typically
@@ -16,8 +22,6 @@
     beyond that limit.
 
 \end{definition}
-
-
 
 \begin{definition}[Gaussian blur]
     Use a gaussian function on an image to reduce image noise and detail
@@ -41,6 +45,20 @@
     $$
 \end{definition}
 
+\begin{definition}[Grayscale]
+    an image in which the value of each pixel is a single sample, that is, it
+    carries only intensity information
+
+    Grayscale images are distinct from one-bit bi-tonal black-and-white images,
+    which in the context of computer imaging are images with only the two
+    colors, black, and white (also called bilevel or binary images). Grayscale
+    images have many shades of gray in between.
+
+    Grayscale images are often the result of measuring the intensity of light
+    at each pixel in a single band of the electromagnetic spectrum 
+
+\end{definition}
+
 \begin{definition}[Image gradient]
     Gradual blend of color
 \end{definition}
@@ -54,6 +72,25 @@
     with only contents in the middle over another.
 \end{definition}
 
+\begin{definition}[Isotropy]\label{isotropy}
+    Directionally independent. Opposite of~\nameref{anisotropy}.
+\end{definition}
+
+\begin{definition}[Laplacian]
+    Highlight regions of rapid intensity change and is therefore often used for
+    edge detection.
+
+    Often applied to an image that has first been smoothed with something
+    approxiating in order to reduce its sensitivity to noise.
+
+\end{definition}
+
+
+\begin{definition}[SRGB]
+    sRGB is a standard RGB color space created cooperatively by HP and
+    Microsoft in 1996 for use on monitors, printers and the Internet.
+
+\end{definition}
 
 
 \begin{definition}[Poisson image editing]
@@ -73,3 +110,8 @@
     could assign each pixel a color value.
 \end{definition}
 
+\begin{definition}[Stencil]
+    A figure that connects dots on a grid. Usually a cross-like figure 
+    (one center dots, and one edge out in 4 directions from the center to
+    other dots).
+\end{definition}

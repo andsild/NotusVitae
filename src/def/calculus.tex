@@ -1,5 +1,17 @@
 \section{Calculus}
 
+\begin{definition}[Adiabatic]
+    adiabatic wall between two thermodynamic systems does not allow heat or
+    matter to pass across it. 
+
+\end{definition}
+
+\begin{definition}[A priori estimate]
+    An estimate for a size of a solution or it's deriviates of a PDE.\
+    The estimate is made before the solution is known to exists.
+
+\end{definition}
+
 \begin{definition}[Affine]
     $ 
     f(x_{1}, x_{2}, \dots, x_{n}) = 
@@ -47,6 +59,17 @@
     $
 \end{definition}
 
+\begin{definition}[Azimuth]
+     is an angular measurement in a spherical coordinate system. The vector
+     from an observer (origin) to a point of interest is projected
+     perpendicularly onto a reference plane; the angle between the projected
+     vector and a reference vector on the reference plane is called the
+     azimuth.
+
+     \includegraphics[scale=0.3]{azimuth.png}
+
+\end{definition}
+
 \begin{definition}[Bijection]
     \begin{align}
         S,R \text{\ are sets} \\
@@ -60,6 +83,12 @@
     value problem is a solution to the differential equation which also
     satisfies the boundary conditions.
     
+\end{definition}
+
+\begin{definition}[Cauchy sequence]
+    a sequence whose elements become arbitrarily close to each other as the
+    sequence progresses.
+
 \end{definition}
 
 \begin{definition}[Convolution]
@@ -97,6 +126,12 @@ discontinuous.
 \end{center}
 \end{definition}
 
+\begin{definition}[Conjugate]
+     is a binomial formed by negating the second term of a binomial. The
+     conjugate of $x + y$ is $x − y$.
+
+\end{definition}
+
 \begin{definition}[Concave]
     Let $f$ be a function defined on the interval $[x_{1}, x_{2}]$.
     This function is concave according to the definition if, for every pair of
@@ -117,14 +152,34 @@ discontinuous.
     Similar shape and growth, just different scalar / rotation.
 \end{definition}
 
+
+\begin{definition}[Damping]
+    is an influence within or upon an oscillatory system that has the effect of
+    reducing, restricting or preventing its oscillations. 
+    Underdamped systems will start bouncy and then stop.
+
+\end{definition}
+
 \begin{definition}[Differential operator]
     An operator to do differentiation. This is mainly to abstract
     differenentiation.
 
 \end{definition}
 
+\begin{definition}[Discrete Fourier Transform]\label{dft}
+    converts a finite list of equally spaced samples of a function into the
+    list of coefficients of a finite combination of complex sinusoids, ordered
+    by their frequencies, that has those same sample values.
+
+\end{definition}
+
+\begin{definition}[Discrete Sine Transform]
+    Similar to~\nameref{dft}, but uses only a real matrix.
+
+\end{definition}
+
 \begin{definition}[Discretization]
-    In mathematics, discretization concerns the process of transferring
+    concerns the process of transferring
     continuous models and equations into discrete counterparts. 
     AKA\ smoothening curves to avoid jumps.
 
@@ -140,7 +195,7 @@ discontinuous.
     t$. The divergence measures the collected value from each of 
     these~\nameref{vectorfield}s.
 
-    The operator for divergence is \verb|{div}|.
+    The operator for divergence is \verb|{div}|, represented by nabla.
 
     Given vector field $F = Ui, Vj, Wk$:
     \begin{align}
@@ -177,6 +232,28 @@ discontinuous.
         \item[Backward] is of the form $\nabla{f}(x) = f(x) - f(x - h)$
         \item[Centered] is of the form $\delta{f}(x) = f(x + \frac{1}{2}h) - f(x - \frac{1}{2}h)$
     \end{description}
+\end{definition}
+
+\begin{definition}[Finite element method]
+    (FEM) is a numerical technique for finding approximate solutions to
+    boundary value problems for differential equations. It uses variational
+    methods (the calculus of variations) to minimize an error function and
+    produce a stable solution.  Analogous to the idea that connecting many tiny
+    straight lines can approximate a larger circle, FEM encompasses all the
+    methods for connecting many simple element equations over many small
+    subdomains, named finite elements, to approximate a more complex equation
+    over a larger domain.
+
+\end{definition}
+
+\begin{definition}[Fourier transform]
+
+\end{definition}
+
+\begin{definition}[Fourier Analysis]
+    the study of the way general functions may be represented or approximated
+    by sums of simpler trigonometric functions
+
 \end{definition}
 
 \begin{definition}[Flow]
@@ -221,6 +298,10 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Interpolating polynomial]
+    Given a set of points, define a function $f$ that intersects these points.
+\end{definition}
+
 \begin{definition}[Law of cosines]
     \begin{align*}
         v \cdot u = |v||u|\cos{\theta} \\
@@ -258,6 +339,25 @@ discontinuous.
 \begin{definition}[Line integral]
     An integral where the function to be integrated is along a curve.
     The function is usually a~\nameref{vectorfield} or~\nameref{scalarfield}.
+
+\end{definition}
+
+\begin{definition}[Locus]
+    a set of points whose location satisfies or is determined by one or more
+    specified conditions
+
+\end{definition}
+
+\begin{definition}[Numerical analysis]
+    The study of algorithms that use numerical approximation (as opposed to
+    general symbolic manipulations) for the problems of mathematical analysis.
+
+    Given a space $V$, find a finite subspace of $V$, such that you can
+    calculate on it..
+
+    \includegraphics[scale=1.0]{fem.png}
+    A function in  with zero values at the endpoints (blue), and a piecewise
+    linear approximation (red)
 
 \end{definition}
 
@@ -304,10 +404,38 @@ discontinuous.
     $$
 \end{definition}
 
+\begin{definition}[Residual]
+    In numerical analysis, this is the error from a result.
+    E.g.\ in integration we have something-something + $C$, where C is the 
+    the residual.
+
+\end{definition}
+
 \begin{definition}[Riemanns sum]
     Sum from an integral. Divide the area under/over a curve into rectangles
     or trapezoids, and sum together their area. The smaller the shapes, the
     better.
+\end{definition}
+
+\begin{definition}[Sine wave]
+or sinusoid is a mathematical curve that describes a smooth repetitive
+oscillation.
+
+Its most basic form as a function of time $(t)$ is:
+
+$y(t) = A\sin(2 \pi f t + \varphi) = A\sin(\omega t + \varphi)$
+where:
+\begin{description}
+    \item[A], the amplitude, is the peak deviation of the function from zero.
+    \item[f], the ordinary frequency, is the number of oscillations (cycles)
+        that occur each second of time.
+    \item[ω] = 2πf, the angular frequency, is the rate of change of the
+    function argument in units of radians per second 
+    \item[$\varphi$], the phase, specifies (in radians) where in its cycle the
+        oscillation is at t = 0. I.e.\ the ``horizontal shift'' from a regular
+        sine wave(????).
+\end{description}
+
 \end{definition}
 
 \begin{definition}[Standard form]

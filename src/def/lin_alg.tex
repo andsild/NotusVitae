@@ -6,7 +6,7 @@
     $\mathbf{R}^{n}$ using $V$.
 \end{definition}
 
-\begin{definition}[Condition number]
+\begin{definition}[Condition number]\label{conditionnumber}
     A measure of how the output value for a function changes respective to 
     input variables.
 \end{definition}
@@ -31,6 +31,14 @@
     \includegraphics[scale=0.3]{mm.png}
 \end{definition}
 
+\begin{definition}[Echelon form]
+    A matrix where:
+    \begin{enumerate}
+        \item All nonzero rows are above zero-rows
+        \item Each pivot column is placed from left to right
+    \end{enumerate}
+\end{definition}
+
 \begin{definition}[Eigenvector]\label{eigen}
     Given a square matrix A, when A is multiplied with an eigenvector $v$,
     the resulting matrix A${^\prime}$ is a multiple of $v$.
@@ -42,6 +50,13 @@
 \begin{definition}[Gaussian Elimination]
     AKA ``Row reduction''. Add row $x$ to row $y, y \neq x$, to reduce $y$ to 
     zeroes.
+
+\end{definition}
+
+\begin{definition}[Ill-conditioned matrix]
+    A matrix is ill-conditioned if the~\nameref{conditionnumber} is large.
+    If you make a small change in an ill conditioned matrix, there are usually
+    large differences in results from calculations with this maxtrix.
 
 \end{definition}
 
@@ -93,9 +108,17 @@
     \end{align}
 \end{definition}
 
+\begin{definition}[Matrix of observations]
+    Collect a sample, subject it to tests, and for each test, you give a value.
+    For $n$ tests and $m$ samples, you will result in $\Re^{n\times{m}}$ 
+    \textit{matrix of observations}.
+\end{definition}
+
 \begin{definition}[Norm]
     The ``length'' of a vector, just remember to sum up over all dimensions.
     Each number is raised to $n$, and the total sum is then raised to
+
+    L1, L2..
 $\frac{1}{p}$.  \end{definition}
 
 \begin{definition}[Normalization of vectors]
@@ -131,6 +154,19 @@ $\frac{1}{p}$.  \end{definition}
     Similar to~\nameref{orthogonal}, but with lines.
 \end{definition}
 
+\begin{definition}[Pivoting]
+    Finding the first non-zero element in an algorithm on linear systems.
+    To do so, you can do things like gaussian elimination, etc.
+    \begin{description}
+        \item[Complete pivoting] find the largest absolute value of a pivot,
+            considering all elements.
+        \item[Partial pivoting] finds the largest absolute value in the pivot
+            column.
+        \item[Scaled pivoting] finds the largest absolute value of a pivot
+            column relative to it's entries in the same row.
+    \end{description}
+\end{definition}
+
 \begin{definition}[Plane]
     A flat, two-dimensional surface
 \end{definition}
@@ -145,6 +181,12 @@ $\frac{1}{p}$.  \end{definition}
             such that $w^{T}_{i}w = 1$ and $w^{T}_{i}w_{j} = 0$
 
     \end{itemize}
+\end{definition}
+
+\begin{definition}[Preconditoner]
+    A matrix $P$ such that $P^{-1}A$ has a smaller~\nameref{conditionnumber}
+    than $A$.
+
 \end{definition}
 
 \begin{definition}[Projection]
@@ -165,6 +207,12 @@ $\frac{1}{p}$.  \end{definition}
 
 \end{definition}
 
+\begin{definition}[Singular matrix]
+    Any square matrix without an inverse.
+    A matrix is singular $\iff$ its determinant is 0.
+
+\end{definition}
+
 \begin{definition}[Span of vectors]\label{vectorspan}
     All linear combinations of a set of vectors.
     \begin{align*}
@@ -174,8 +222,16 @@ $\frac{1}{p}$.  \end{definition}
     \end{align*}
 \end{definition}
 
+\begin{definition}[Spectrum of a matrix]
+    The multiset of its eigenvalues
+\end{definition}
+
 \begin{definition}[Spectral Radius]
-    The largest eigenvalue of a matrix.
+    The largest absolute eigenvalue of a matrix.
+\end{definition}
+
+\begin{definition}[Successive Over Relaxation]
+    Gauss-Seidel is the same as SOR (successive over-relaxation) with $\omega=1$
 \end{definition}
 
 \begin{definition}[Symmetric]

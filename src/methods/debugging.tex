@@ -1,0 +1,23 @@
+\section{Debugging with GDB}
+
+Use \textbf{bt} to get a backtrace.
+Example:
+\begin{verbatim}
+#0  0x00007ffff48daf7c in std::string::assign(std::string const&) () from /usr/lib/gcc/x86_64-pc
+-linux-gnu/4.7.3/libstdc++.so.6
+Python Exception <type 'exceptions.IndexError'> list index out of range: 
+#1  0x00005555555925a7 in image_psb::ImageSolver::doImageDisplay (this=0x7fffffffcb40, mapFiles= std::map with 2 elements, 
+    sImageRoot="../test_media/") at /home/andesil/PSB/src/./image2.cpp:489
+#2  0x0000555555591c99 in image_psb::ImageSolver::renderImages (this=0x7fffffffcb40, sImageRoot=
+"../test_media/", 
+    vIf=std::vector of length 3, capacity 3 = {...}, cImagePath=0x55555563e50a "/image/") at /home/andesil/PSB/src/./image2.cpp:417
+#3  0x0000555555585b4b in main (argc=5, argv=0x7fffffffd888) at /home/andesil/PSB/src/main.cpp:201
+\end{verbatim}
+
+Here, each number is called a \textit{frame}. You can inspect each frame by
+typing ``\textbf{info frame \#n}'', where \#n is the number of the frame. To get a local
+inspection (set scope), type ``\textbf{set frame \#n}''.
+Then it makes more sense to type commands like ``\textbf{info locals}'' and ``\textbf{info args}''.
+
+To only show some items in the backtrace, type ``\textbf{bt -n}'', where n is the number of
+frames, from bottom that you want to include.

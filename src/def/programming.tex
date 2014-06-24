@@ -1,0 +1,18 @@
+\section{C++}
+
+const <C>\& function { return FOO; }
+means it will return a constant reference to C
+
+<C>\& function const { return FOO; }
+means it will not modify any data in C.
+
+
+std::vector<T> will typically allocate space in $2^{n}$, where n is minimal.
+Whenever n increases, a new buffer is allocated, which means that it will
+have to iterate over all it's former elements - giving ${2^n+1}$ iterations.
+Hence, one should pre-allocate the space needed when possible.
+
+Whenever you use cout to output something, ostream buffers it but does not send
+it to the output device immediately. Only when the buffer is flushed will the
+output get sent to the destination. This can cause trouble if e.g.\
+the buffer is full (usually 512 bytes).
