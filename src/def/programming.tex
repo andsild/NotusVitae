@@ -1,13 +1,13 @@
 \section{C++}
 
-const <C>\& function { return FOO; }
+const \textless{C}\textgreater\& function \{\ return FOO; \}
 means it will return a constant reference to C
 
-<C>\& function const { return FOO; }
+\textless{C}\textgreater\& function const \{\ return FOO; \}
 means it will not modify any data in C.
 
 
-std::vector<T> will typically allocate space in $2^{n}$, where n is minimal.
+std::vector\textless{T}\textgreater will typically allocate space in $2^{n}$, where n is minimal.
 Whenever n increases, a new buffer is allocated, which means that it will
 have to iterate over all it's former elements - giving ${2^n+1}$ iterations.
 Hence, one should pre-allocate the space needed when possible.
@@ -15,4 +15,92 @@ Hence, one should pre-allocate the space needed when possible.
 Whenever you use cout to output something, ostream buffers it but does not send
 it to the output device immediately. Only when the buffer is flushed will the
 output get sent to the destination. This can cause trouble if e.g.\
-the buffer is full (usually 512 bytes).
+twidth he buffer is full (usually 512 bytes).
+
+\section{Haskell}
+\begin{definition}[=\textgreater]
+    Every expression preceeding the =\textgreater is a 
+    \textbf{class constraint:} it forces types and memberships
+
+\end{definition}
+
+\begin{definition}[-\textgreater]
+    Used to separate variables and return types in functions.
+\end{definition}
+
+\begin{definition}[Guards]
+    Guards are indicated by pipes that follow a function's name and its
+    parameters. They evaluate to true or false, and then the following
+    function body is used in case of true.
+
+\end{definition}
+
+\section{More words and def\dots}
+
+
+\begin{definition}[Concurrency]\label{concurrency}
+    To execute several unrelated tasks at the same time. E.g.\ on a game-server
+    one thread deals with chatting, one deals with connections, etc.
+    One important aspect of concurrent threads is that they
+    are~\nameref{nondeterministicprog}. That means that you can predict their
+    state pre-emptively. That is also why we usually do so much thread joining
+    etc.
+    See also~\nameref{parallelism}.
+
+\end{definition}
+
+\begin{definition}[Currying]
+    the technique of translating the evaluation of a function that takes
+    multiple arguments (or a tuple of arguments) into evaluating a sequence of
+    functions, each with a single argument (partial application)
+
+    E.g.\ $f(x,y) ---> h(x) = y -> f(x, y)$.
+    Here, $h(x)$ is a curried version of f, and the $->$ is a function that
+    maps the result from $h$ to $f$.
+\end{definition}
+
+\begin{definition}[Folding]
+    Take a list, apply a function and reduce the list to a single value.
+    (this is the python's reduce)
+
+\end{definition}
+
+\begin{definition}[High order functions]
+    can take functions as parameters and return functions as return values.
+
+\end{definition}
+
+\begin{definition}[Include guards]
+    Avoid re-invoking a header multiple times: enforce that they are only 
+    loaded once. In C++ (11) you can use the 
+    \begin{verbatim}#pragma once\end{verbatim}
+\end{definition}
+
+\begin{definition}[Nondeterministic programming]\label{nondeterministicprog}
+    A nondeterministic programming language is a language which can specify, at
+    certain points in the program (called "choice points"), various alternatives
+    for program flow. Unlike an if-then statement, the method of choice between
+    these alternatives is not directly specified by the programmer; the program
+    must decide at run time between the alternatives, via some general method
+    applied to all choice points
+
+\end{definition}
+
+\begin{definition}[Lock order inversion]
+    Entity A ackquires a lock on $X$, entity B ackquires a lock on $Y$.
+    Now, $X$ depends on something in $Y$ and verca visa. The programs will
+    now deadlock - each waiting for the other to finish their task.
+
+\end{definition}
+
+\begin{definition}[Parallelism]\label{parallelism}
+    To use multiple threads to solve one problem. See
+    also~\nameref{concurrency}.
+
+\end{definition}
+
+\begin{definition}[Strict variable]
+    A variable with a determined typed. E.g.\ writing "int myvar = 5" instead
+    of just "myvar = 5" (non-strict).
+
+\end{definition}

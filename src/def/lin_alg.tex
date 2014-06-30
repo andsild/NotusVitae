@@ -6,6 +6,10 @@
     $\mathbf{R}^{n}$ using $V$.
 \end{definition}
 
+\begin{definition}[Backward substituion]\label{backwardsubstituion}
+    Opposite of~\nameref{forwardsubstituion}.
+\end{definition}
+
 \begin{definition}[Condition number]\label{conditionnumber}
     A measure of how the output value for a function changes respective to 
     input variables.
@@ -44,6 +48,14 @@
     the resulting matrix A${^\prime}$ is a multiple of $v$.
     The multipe is denoted by $\lambda$ and is called an eigenvalue.
     So, $Av = \lambda v$
+
+\end{definition}
+
+\begin{definition}[Forward substituion]\label{forwardsubstituion}
+    In an iterative method, if we first solve an element $A_{i,j}$,
+    then when we caluclate some $A_{i+a, j+b}$ in the same iteration, then we
+    use the updated value of $A_{i,j}$. Opposite
+    of~\nameref{backwardsubstituion}
 
 \end{definition}
 
@@ -204,6 +216,12 @@ $\frac{1}{p}$.  \end{definition}
         \item Linear independence on $u, v$ also relates for $v - proj(v), u$
         \item adding $proj(v)$ to $v$ gives you $u$
     \end{itemize}
+
+\end{definition}
+
+\begin{definition}[Relaxation methods]
+     relaxation methods are iterative methods for solving systems of equations,
+     including nonlinear systems. Examples are Gauss-Seidel, Jacboi, etc.
 
 \end{definition}
 
