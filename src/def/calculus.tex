@@ -19,6 +19,14 @@
     $
 \end{definition}
 
+\begin{definition}[Analytic function]
+    A function given by~\nameref{convergence}~\nameref{powerseries}.
+    
+    Any polynomial, exponential and trigonometric function is analytic.
+    Functions that are not differentiable at given points are not analytic.
+
+\end{definition}
+
 \begin{definition}[arcsin]
     \begin{align*}
         \sin{y} &= x \\
@@ -91,6 +99,11 @@
     sequence progresses.
     Think of \textit{two} curves that approximate each other.
 
+\end{definition}
+
+\begin{definition}[Convergence]\label{convergence}
+    A series is convergent is the sum of it's elements approaches a given 
+    number.
 \end{definition}
 
 \begin{definition}[Convolution]
@@ -222,6 +235,12 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Explicit methods]\label{explicitmethod}
+    In numerical analysis, an explicit method calculates the state of the system
+    using only earlier history. See also~\nameref{implicitmethod}.
+\end{definition}
+
+
 \begin{definition}[Extreme point]
     A point furthest away from something.
 \end{definition}
@@ -288,12 +307,29 @@ discontinuous.
     $$
 \end{definition}
 
+\begin{definition}[Homogenous]
+    If a function $f$ is multiplied by a sclar $k$, then the result
+    is a number multiplied by the scalar raised to some power $a$.
+\end{definition}
+
 \begin{definition}[Hyperbolic]
     Two curves that kind of face each other like bananas.
 \end{definition}
 
 \begin{definition}[Identity function]
     $\forall{x}, f(x) = x$
+\end{definition}
+
+\begin{definition}[Implicit method]\label{implicitmethod}
+    In numerical analysis, an implicit method calculates the state of the system
+    using both the current state and future ones. E.g.\ Gauss-seidel method
+    See also~\nameref{explicitmethod}.
+\end{definition}
+
+\begin{definition}[Idenpendent variable]
+    A variable that may be given without considering the value of other
+    variables. E.g.\ for $y = 4x + 2$, x is indepdent (can be chosen freely)
+    whereas $y$ is not: it depends on the value of $x$.
 \end{definition}
 
 \begin{definition}[Integral]
@@ -404,6 +440,12 @@ discontinuous.
     together.
 \end{definition}
 
+\begin{definition}[Power series]\label{powerseries}
+    \begin{align}
+        f(x) = \sum\limits_{n=0}^{\infty}{a_{n}{(x-c)}^{n}}
+    \end{align}
+\end{definition}
+
 \begin{definition}[Rectangle function]
     $$
     \Pi(x) = \left\{
@@ -426,6 +468,9 @@ discontinuous.
     In numerical analysis, this is the error from a result.
     E.g.\ in integration we have something-something + $C$, where C is the 
     the residual.
+
+    It can (perhaps betterly) be stated that residuals is the error that occurs
+    when approximating a function.
 
 \end{definition}
 
@@ -462,6 +507,15 @@ where:
 
 \begin{definition}[Standard form]
     To write a number as a power of 10.
+\end{definition}
+
+\begin{definition}[Taylor series]
+    A representation of a function as an infinite sum of terms that are 
+    calculated from the derivatives at a point in the function.
+    The formula is:
+    \begin{align}
+        \sum\limits_{n=0}^{\infty}{\frac{f^{(n)}(a)}{n!}{(x-a)}^{n}}
+    \end{align}
 \end{definition}
 
 \begin{definition}[Univariate]
