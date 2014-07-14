@@ -101,6 +101,10 @@
 
 \end{definition}
 
+\begin{definition}[Cardinal number, ]
+    The size of a set.
+\end{definition}
+
 \begin{definition}[Convergence]\label{convergence}
     A series is convergent is the sum of it's elements approaches a given 
     number.
@@ -188,6 +192,15 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Discrete Laplace transform]
+    An integral transfrom, which in 2d uses the kernel
+    % \begin{bmatrix}   
+    %     0 & 1 & 0 \\  
+    %     1 & -4 & 1 \\ 
+    %     0 & 1 & 0     
+    % \end{bmatrix}     
+\end{definition}
+
 \begin{definition}[Discrete Sine Transform]
     Similar to~\nameref{dft}, but uses only a real matrix.
 
@@ -235,6 +248,16 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Expansion function]
+    A function, with a series, to express a function. The series will in
+    most cases be an approximation to the original function.
+    Signal functions are often modeled using expansion functions.
+\end{definition}
+
+\begin{definition}[Eulers formula]
+    $e^{ix} = \cos{x} + i\sin{x}$
+\end{definition}
+
 \begin{definition}[Explicit methods]\label{explicitmethod}
     In numerical analysis, an explicit method calculates the state of the system
     using only earlier history. See also~\nameref{implicitmethod}.
@@ -272,7 +295,14 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Filter bank]
+    To take a signal and expose it to a series of filters that separate the
+    input signal into different channel. One example is sound equalizers:
+    you can adjust different parts of the signal.
+\end{definition}
+
 \begin{definition}[Fourier transform]
+    Map one function onto another
 
 \end{definition}
 
@@ -305,6 +335,7 @@ discontinuous.
             \end{array}
         \right.
     $$
+    (it looks just like you think\dots)
 \end{definition}
 
 \begin{definition}[Homogenous]
@@ -326,6 +357,11 @@ discontinuous.
     See also~\nameref{explicitmethod}.
 \end{definition}
 
+\begin{definition}[Idempotence]
+    An operation that can be applied multiple times without changing the
+    the result. E.g.\ $f(f(x) = f(x)$
+\end{definition}
+
 \begin{definition}[Idenpendent variable]
     A variable that may be given without considering the value of other
     variables. E.g.\ for $y = 4x + 2$, x is indepdent (can be chosen freely)
@@ -339,10 +375,45 @@ discontinuous.
         \int_{a}^{b}x^{n} dx = \frac{x^{n+1}}{n+1} + C \\
     \end{align}
 
+    A function is said to be \textit{locally integrable} if it 's integral is 
+    finite in a given domain.
+
+    \textbf{Integration by parts:} $\int{u \times v dx} = u\int{v dx} - \int{u\prime{(v dx}}dx $
+
+    Some identities:
+    \begin{longtable}{|l|l|}
+        $\int_{a}^{b}\cos{x} $ & $\sin{x} + C $ \\
+    $\int_{a}^{b}\sin{x}$ & $-1 \times \cos{x} + C $\\
+    $e^{x}$ & $e^{x} + C $
+    \end{longtable}
+
+\end{definition}
+
+\begin{definition}[Integral transform]\label{inttrans}
+    Input a function, and output another (using integrals).
+    To do the transformation, one typically usues a \textit{kernel function} (e.g.\ 
+    using a stencil in a grid).
+
+    Usually, this is done to find a domain or function that is easier to compute
+    on. 
+
+    After completing the computations, one performs an inverse integral transform
+    to translate back to the original domain.
 \end{definition}
 
 \begin{definition}[Interpolating polynomial]
     Given a set of points, define a function $f$ that intersects these points.
+\end{definition}
+
+\begin{definition}[Kronecker delta]
+    A function for two variables, that returns 1 if the variables are equal,
+    and zero otherwise.
+    $$
+    \delta_{i,j} = \begin{array}{ll}
+        0 & if i \neq j \\
+        1 & if i = j
+        \end{array}
+    $$
 \end{definition}
 
 \begin{definition}[Law of cosines]
@@ -391,6 +462,10 @@ discontinuous.
 
 \end{definition}
 
+\begin{definition}[Moment]
+    TBD.
+\end{definition}
+
 \begin{definition}[Numerical analysis]
     The study of algorithms that use numerical approximation (as opposed to
     general symbolic manipulations) for the problems of mathematical analysis.
@@ -402,6 +477,23 @@ discontinuous.
     A function in  with zero values at the endpoints (blue), and a piecewise
     linear approximation (red)
 
+\end{definition}
+
+\begin{definition}[Odd function]\label{oddfunc}
+    A function with the same values when you rotate 180 degrees around...
+    \begin{align}
+        - f(x) &= f(-x) \\
+        f(x) + f(-x) &= 0
+    \end{align}
+    See also~\nameref{evenfunc}
+\end{definition}
+
+\begin{definition}[Even function]\label{evenfunc}
+    Kind of like a mirror (90 degrees) around an axis;
+    \begin{align}
+        f(x) &= f(-x) \\
+    \end{align}
+    See also~\nameref{oddfunc}
 \end{definition}
 
 \begin{definition}[Pathological]
@@ -474,10 +566,13 @@ discontinuous.
 
 \end{definition}
 
-\begin{definition}[Riemanns sum]
+\begin{definition}[Riemanns sum]\label{riemannsum}
     Sum from an integral. Divide the area under/over a curve into rectangles
     or trapezoids, and sum together their area. The smaller the shapes, the
     better.
+
+    It is important to note that~\nameref{riemannsum} is an approximation - 
+    one can not perfectly reconstruct the area under a curve.
 \end{definition}
 
 \begin{definition}[Risk function]
@@ -501,6 +596,9 @@ where:
     \item[$\varphi$], the phase, specifies (in radians) where in its cycle the
         oscillation is at t = 0. I.e.\ the ``horizontal shift'' from a regular
         sine wave(????).
+    If you e.g.\ represent two functions, $f(x) = \sin{x}$ and $g(x) = \sin{x} + 3$
+    , the difference, i.e.\ phase shift, is 3. Note that these two functions
+    have the same amplitude and frequency.
 \end{description}
 
 \end{definition}
@@ -518,6 +616,33 @@ where:
     \end{align}
 \end{definition}
 
+\begin{definition}[Shift invariant system]
+    A discrete form of~\nameref{TIS} - the timesteps are discretized to follow
+    a lattice spacing.
+\end{definition}
+
+\begin{definition}[Time invariant system]\label{TIS}
+    A function with an output that does not depend on the output:
+    \begin{align}
+        x(t) &= y(t) \\
+        x(t + \delta) &= y(t + \delta)
+    \end{align}
+
+    One example is the derivative function of polynomials (and others?) -
+    no matter what timestep you choose - the value if the same.
+
+    The ``antonym'' would be a time variant system.
+\end{definition}
+
+\begin{definition}[Translation invariant system]
+    A system such that after a translation from A to T, any operator
+    applied to A yields the same results in T.
+\end{definition}
+
+\begin{definition}[Unity]
+    The number one. ``Unit functions'', ``unit circles'' all have the number 1.
+\end{definition}
+
 \begin{definition}[Univariate]
     An equation with only one variable.
 \end{definition}
@@ -525,4 +650,8 @@ where:
 \begin{definition}[Vector Field]\label{vectorfield}
     An assigment of direction for a given set of points in an euclidian space.
     E.g.\ select every (10n, 10n) pixels in an image and get their derivative.
+\end{definition}
+
+\begin{definition}[Window function]
+    A function that is zero outside of a given domain.
 \end{definition}

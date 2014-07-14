@@ -31,6 +31,27 @@
     then matrix $A$ is DD.
 \end{definition}
 
+\begin{definition}[Diagonlizable matrix]
+    Given a matrix $A$, we can express it as $A = PDP^{-1}$.
+    Then, we can compute:
+    \begin{align}
+        A^{2} = (PDP^{-1})(PDP^{-1}) = PD(P^{-1}P)DP^{-1} = PDDP^{-1} \\
+        \text{Because} P \cdot P{-1} = I \\
+        \dots A^{k} = PD^{k}P^{-1}
+    \end{align}
+
+    So, we use diagonal matrices to easily raise matrices to power $k$.
+    
+    To diagonalize a matrix $A^{n\times{n}}$, it is required that it has $n$ linearly 
+    independent eigenvectors.
+\end{definition}
+
+\begin{definition}[Divergence]
+    In vector calculus, divergence measures the magnitude to the
+    gradient of~\nameref{vectorfield}s at a given point.
+
+\end{definition}
+
 \begin{definition}[Dotting matrices]
     \includegraphics[scale=0.3]{mm.png}
 \end{definition}
@@ -74,22 +95,23 @@
 
 \begin{definition}[Inverse]
     For a matrix $A \in \mathbf{R}^{2x2}$:
-    $A^{-1} = \frac{1}{|A|}
-        \begin{bmatrix}
-            d & -b \\
-            -c & a
-        \end{bmatrix}
+    $$
+    A^{-1} = \frac{1}{|A|}
+    \begin{bmatrix}
+    d & -b \\
+    -c & a
+    \end{bmatrix}
     = \frac{1}{ad - bc}
-        \begin{bmatrix}
-            d & -b \\
-            -c & a
-        \end{bmatrix}
-    $\\
+    \begin{bmatrix}
+    d & -b \\
+    -c & a
+    \end{bmatrix}
+    $$
     For a matrix $A \in \mathbf{R}^{3x3}$: bcacab
 
     Properties:
     \begin{itemize}
-        \item $(A^{-1})^{-1} = A$
+    \item $(A^{-1})^{-1} = A$
     \end{itemize}
 \end{definition}
 
@@ -261,6 +283,19 @@ $\frac{1}{p}$.  \end{definition}
 
 \begin{definition}[Tensor]
     Geometric objects that describe linear relations between vectors or scalars.
+\end{definition}
+
+\begin{definition}[Toeplitz matrix]
+    $$
+    \begin{bmatrix}
+    a & b & c & d \\
+    b & a & b & c \\
+    c & b & a & b \\
+    d & c & b & a
+    \end{bmatrix}
+    $$
+
+    Noteworthingly, this kind of matrix can be inverted in $O(n \times \log{n})$
 \end{definition}
 
 \begin{definition}[Trace]

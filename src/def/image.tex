@@ -1,5 +1,10 @@
 \section{Image Processing}
 
+\begin{definition}[Aliasing]
+    Images are constructed and then reconstructed one or more times - 
+    each of these reconstructions are referred to as aliases.
+\end{definition}
+
 \begin{definition}[Anisotropy]\label{anisotropy}
     Directionally dependent. Opposite of~\nameref{isotropy}.
     Example is to apply a filter to a set of images - consider
@@ -12,6 +17,23 @@
     edges, lines or other details that are important for the interpretation of
     the image.
 
+\end{definition}
+
+\begin{definition}[Aperture]
+    A hole which light goes through.
+\end{definition}
+
+\begin{definition}[Convolution]\label{convolution}
+    In image-processing, this can in general be thought of as applying a mask
+    that takes the local neighbourhood for a pixel x and calculates its
+    gradient.
+
+    Noteworthingly, convolution as an operation to an image is in general
+    $O(n^{2})$.
+\end{definition}
+
+\begin{definition}[Dilation (of functions)]
+    To skew a function, e.g.\ for $f(x) = x$, you skew to $\hat{f}(x) = x + 2$.
 \end{definition}
 
 \begin{definition}[Dirichet boundary condtions]
@@ -30,6 +52,16 @@
 
 \end{definition}
 
+\begin{definition}[Filter]
+    Applying a mask or operation to an image to extract or distort values.
+
+    \begin{description}
+        \item[High-pass] takes only the high frequency into play, lower values
+            are not affected that strongly (if at all)
+        \item[Low-pass] \dots
+    \end{description}
+\end{definition}
+
 \begin{definition}[Gaussian blur]
     Use a gaussian function on an image to reduce image noise and detail
 \end{definition}
@@ -38,6 +70,15 @@
     Gaussian filters have the properties of having no overshoot to a step
     function input while minimizing the rise and fall time.
 
+\end{definition}
+
+\begin{definition}[Gaussian pyramid]
+    A stack of images, where for each iteration, you take neighboring pixels
+    and make them into one. That is, you reduce the intensity in the picture.
+    This compresses the image. 
+
+    It is a pyramid because for each iteration you take neighboring pixels
+    from the previous pyramid to generate the current.
 \end{definition}
 
 
@@ -50,8 +91,25 @@
         \frac{\partial{f}}{\partial{x_{n}}}
     \right)
     $$
+
+    Note that for an oridnary image, the gradient at a given position is 
+    given by:
+    $$
+    \nabla{f} = 
+    \frac{\partial{f}}{\partial{x}}\hat{x} +
+    \frac{\partial{f}}{\partial{y}}\hat{y}
+    $$
+    Where the first (x) term is the gradient in direction x, and y is the
+    gradient in direction y.
+
+    One can also calculate the direction of the gradient using
+    $\theta = a\tan^{2}{\frac{\partial{f}}{\partial{y}}, \frac{\partial{f}}{\partial{x}}}$
 \end{definition}
 
+\begin{definition}[Grating]
+    A collection of identical pararell objects, placed next to each other with
+    equal spacing.
+    \end{definition}
 \begin{definition}[Grayscale]
     an image in which the value of each pixel is a single sample, that is, it
     carries only intensity information
@@ -85,6 +143,9 @@
     An example from calculus is: given temps at noon and midnight, estimate
     the temp at 5 PM as the mean of noon and midnight.
 
+    Interpolation can also (in signal processing) be referred to as 
+    \textbf{upsampling}.
+
 \end{definition}
 
 \begin{definition}[Isotropy]\label{isotropy}
@@ -97,6 +158,17 @@
 
     Often applied to an image that has first been smoothed with something
     approxiating in order to reduce its sensitivity to noise.
+
+\end{definition}
+
+\begin{definition}[Spatial frequency]
+    The number of changes in color values that occur per space.
+
+    Images with high spatial frequency are detailed, images with low spatial 
+    frequency will appear blurred.
+
+    I.e.\ sharp transitions from low/high to high/low intensities are said
+    to have a large spatial frequency,
 
 \end{definition}
 
@@ -120,9 +192,22 @@
     An image with pixels.
 \end{definition}
 
+\begin{definition}[Ringing]
+    The size of the oscillations after a peak frequency. E.g.\ if you have a 
+    sudden overshoot (bright color) the amplitude of the next wave is
+    the ringing. (???)
+\end{definition}
+
 \begin{definition}[Scalar field]\label{scalarfield}
     Associate a value to every point in a space. E.g.\ for an image, you
     could assign each pixel a color value.
+\end{definition}
+
+\begin{definition}[Seperable filter]
+    A filter that can be written as the product of two or more small filters.
+    This is usually done to reduce the computational costs.
+    E.g.~\nameref{convolution} is usually faster in 1d than iterating $nD$, for
+    $n \ge 2$.
 \end{definition}
 
 \begin{definition}[Stencil]
