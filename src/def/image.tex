@@ -39,7 +39,7 @@
 \begin{definition}[Dirichet boundary condtions]
     In image processing, you can say that this boundary condition is to assume
     for a set of differential equations, the unknowns at the borders are 
-    equal in the equations and image.
+    0: $u(0) = u(1) = 0$.
 
 \end{definition}
 
@@ -146,6 +146,8 @@
     Interpolation can also (in signal processing) be referred to as 
     \textbf{upsampling}.
 
+    Interpolation can be \textit{linear}(1D), \textit{bilinear}(2D) and so on\dots
+
 \end{definition}
 
 \begin{definition}[Isotropy]\label{isotropy}
@@ -208,6 +210,13 @@
     This is usually done to reduce the computational costs.
     E.g.~\nameref{convolution} is usually faster in 1d than iterating $nD$, for
     $n \ge 2$.
+\end{definition}
+
+\begin{definition}[Spline]
+    A line that goes through a series of points.
+
+    The section between the lines is interpolated. This can be done linearly,
+    quadratic, \dots so on.
 \end{definition}
 
 \begin{definition}[Stencil]

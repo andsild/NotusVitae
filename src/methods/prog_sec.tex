@@ -6,10 +6,10 @@ that this key is valid.
 
 Let $K$ be the key, and $E$ the engine. Then,:
 \begin{gather}
-	\begin{align}
-		&E \rightarrow K: N \\
-		&K \rightarrow E: \{E, N\}_{K}
-	\end{align}
+    \begin{align}
+        &E \rightarrow K: N \\
+        &K \rightarrow E: \{E, N\}_{K}
+    \end{align}
 \end{gather}
 
 Here, N is a challenge sent by the engine to the key in step (1).
@@ -21,7 +21,7 @@ and get valid number, will it start.
 A primitive, three-way~\nameref{keydistribution} process. Also known
 to inspire Kerberos%
 \footnote{originally from Greek/Roman mythology, a three-headed dog, or "hellhound",
-	which guards the entrance of Hades.},
+    which guards the entrance of Hades.},
 the security protocol in windows. The word \textit{primitive} is used to 
 emphasize that the protocol comes from an age where attacks were
 mostly thought of as external-to-internal penetrations, i.e.\
@@ -29,17 +29,17 @@ one needs to assume that attacks come from external networks,
 by people without means of authentication. Hence, the protocol
 fails to defend against users of it's own system.
 
-Having defined key-distribution in section~\ref{secword}, the following should 
+Having defined key-distribution in section~\ref{keydistribution}, the following should 
 be somewhat intuitive:
 \setcounter{equation}{0}
 \begin{gather}
-	\begin{align}
-		&A \rightarrow S: A,B,N_{A}  \\
-		&S \rightarrow A: \{N_A, K_{AB}, B, \{K_{AB}, A\}_{K_{BS}}\}_{K_{AS}} \\ 
-		&A \rightarrow B: \{K_{AB}, A\}_{K_{BS}} \\ 
-		&B \rightarrow A: \{N_B\}_{K_{AB}} \\
-		&A \rightarrow B: \{N_B-1\}_{K_{AB}}
-	\end{align}
+    \begin{align}
+        &A \rightarrow S: A,B,N_{A}  \\
+        &S \rightarrow A: \{N_A, K_{AB}, B, \{K_{AB}, A\}_{K_{BS}}\}_{K_{AS}} \\ 
+        &A \rightarrow B: \{K_{AB}, A\}_{K_{BS}} \\ 
+        &B \rightarrow A: \{N_B\}_{K_{AB}} \\
+        &A \rightarrow B: \{N_B-1\}_{K_{AB}}
+    \end{align}
 \end{gather}
 The difference from plain~\nameref{keydistribution} is that we here introduce the
 concept of \nameref{nonce}s.

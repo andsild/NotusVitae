@@ -6,6 +6,9 @@ means it will return a constant reference to C
 \textless{C}\textgreater\& function const \{\ return FOO; \}
 means it will not modify any data in C.
 
+const char *var is a pointer to a constant value, not a const pointer
+(char const *var).
+
 
 std::vector\textless{T}\textgreater will typically allocate space in $2^{n}$, where n is minimal.
 Whenever n increases, a new buffer is allocated, which means that it will
@@ -16,6 +19,16 @@ Whenever you use cout to output something, ostream buffers it but does not send
 it to the output device immediately. Only when the buffer is flushed will the
 output get sent to the destination. This can cause trouble if e.g.\
 twidth he buffer is full (usually 512 bytes).
+
+\begin{definition}[Rule of three]
+    If you implement at least one of the following, you should implement
+    the others, too:
+    \begin{itemize}
+        \item Destructor 
+        \item Copy constructor 
+        \item Copy assignment operator 
+    \end{itemize}
+\end{definition}
 
 \section{Haskell}
 \begin{definition}[=\textgreater]

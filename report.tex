@@ -1,19 +1,27 @@
 \documentclass{report}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{atbegshi}
 \usepackage{caption}
+\usepackage{epigraph}
+\usepackage{etoolbox}
 \usepackage{enumitem}
 \usepackage{fancyhdr}
+\usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{longtable}
+\usepackage{thmtools}
+\usepackage{tikz, tikzpagenodes}
 \usepackage{titlesec}
 \usepackage{tocloft}
 \usepackage{wrapfig}
-\usepackage{epigraph}
-\usepackage{etoolbox}
-\usepackage{longtable}
-\usepackage{amssymb}
+\usetikzlibrary{positioning}
+\definecolor{darkred}{cmyk}{0.0,0.87,0.87,0.50}
+\colorlet{mygray}{black!20}
 
 \renewcommand*\rmdefault{iwona}
 
@@ -27,17 +35,29 @@
 % To sort the definitions:
 % awk '/^\\begin\{(definition|theorem|proof)\}/,/^\\end{(definition|theorem|proof)}/ { printf "%s\0",$0} /^\\end{definition}/ { print ""}  END {print ""}' PENSUM.tex | sort -t'\0' | tr '\0 ' '\n' 
 
-\pagestyle{fancy}
+% \pagestyle{fancy}
 \pagenumbering{Roman}
 \setcounter{tocdepth}{1}
 \graphicspath{{src/fig/}}
 
+\newtheoremstyle{definitionstyle} % name
+    {\topsep}                    % Space above
+    {\topsep}                    % Space below
+    {}                   % Body font
+    {}                           % Indent amount
+    {\sffamily}                   % Theorem head font
+    {.\newline}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {\thmname{#1}\textbf{\thmnote{ #3}}}  % Theorem head spec (can be left empty, meaning ‘normal’)
+
+
 \newtheorem{theorem}{Theorem}
-\theoremstyle{definition}                                                                                  
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem*{definition}{Definition}
-\newtheorem*{observation}{Observation}
-\newtheorem{prop}[theorem]{Proposition}
+\theoremstyle{definitionstyle}
+% \theoremstyle{nopar}
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem*{definition}{\textgreater{}\textgreater{}}
+\newtheorem*{definition}{$\rightarrow$}
+% \newtheorem{prop}[theorem]{Proposition}
 
 \titleformat{\subsubsection}[runin]% runin puts it in the same paragraph
        {\normalfont\bfseries}% formatting commands to apply to the whole heading
@@ -49,8 +69,61 @@
 	NTNU}
 \date{\today}
 
+\renewcommand\epigraphflush{flushright}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+
+\definecolor{titlepagecolor}{cmyk}{1,.60,0,.40}
+
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
+
+\makeatletter                       
+\def\printauthor{%                  
+    {\large \@author}}              
+\makeatother
+\author{%
+    Anders Sildnes \\
+    \texttt{andsild@gmail.com}\vspace{20pt} \\
+}
+
+\definecolor{mygreen}{RGB}{25,170,75}
+
+\definecolor{mygreen}{RGB}{25,170,75}
+\newcommand\Header{%
+\begin{tikzpicture}[remember picture,overlay]
+\fill[mygreen]
+  (current page.north west) -- (current page.north east) --
+  ([yshift=50pt]current page.north east|-current page text area.north east) --
+  ([yshift=50pt,xshift=-3cm]current page.north|-current page text area.north) --
+  ([yshift=10pt,xshift=-5cm]current page.north|-current page text area.north) --
+  ([yshift=10pt]current page.north west|-current page text area.north west) -- cycle;
+\node[font=\sffamily\bfseries\color{white},anchor=east,
+  xshift=-5.2cm,yshift=-1.0cm] at (current page.north east)
+  {\fontsize{50}{60}\selectfont Notes and definitions};
+\end{tikzpicture}%
+}
+\newcommand\Footer{%
+\begin{tikzpicture}[remember picture,overlay]
+\fill[mygreen]
+  (current page.south west) -- (current page.south east) --
+  ([yshift=-40pt]current page.south east|-current page text area.south east) --
+  ([yshift=-40pt,xshift=-3cm]current page.south|-current page text area.south) --
+  ([xshift=-5cm,yshift=-10pt]current page.south|-current page text area.south) --
+  ([yshift=-10pt]current page.south west|-current page text area.south west) -- cycle;
+\node[yshift=0.75cm,font=\ttfamily\bfseries\color{white}] at (current page.south) {\fontsize{20}{24}\selectfont www.stackexchange.com};
+\end{tikzpicture}%
+}
+
+
+% \pagestyle{empty}
+\AtBeginShipoutFirst{\Header\Footer}
+\AtBeginShipoutFirst{\Header\Footer}
+
+\include{coverphoto}
+% \include{Style}
 
 \begin{document}
+\include{coverpage}
     \begin{abstract}
      An overview of algorithms, words and definitions from my studies as a 
      computer scientist BSc, with an interest in algorithms.
@@ -61,11 +134,15 @@
 
     \huge{No guarantee is given to the correctness of the content}
     \end{abstract}
+\AtBeginShipoutFirst{\Header\Footer}
+\AtBeginShipoutFirst{\Header\Footer}
 
 \tableofcontents
 \listoffigures
 \listoftables
 \pagebreak
+% \newgeometry{left=30mm}
+\newgeometry{hmargin=2cm,bmargin=3cm,tmargin=4.5cm,centering}
 
 \chapter{Words and Definitions}
 \include{src/def/algorithm}

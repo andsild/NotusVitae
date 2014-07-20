@@ -93,6 +93,13 @@
 
 \end{definition}
 
+\begin{definition}[Inner product]\label{innerprod}
+    The product $u^{T}v$. Given that $u, v \in R^{i\times{j}}$, then we need to transpose
+    to perform normal dot products.
+
+    Inner products are commutative: $u \dot v \equiv v \dot u$.
+\end{definition}
+
 \begin{definition}[Inverse]
     For a matrix $A \in \mathbf{R}^{2x2}$:
     $$
@@ -152,8 +159,18 @@
     The ``length'' of a vector, just remember to sum up over all dimensions.
     Each number is raised to $n$, and the total sum is then raised to
 
-    L1, L2..
-$\frac{1}{p}$.  \end{definition}
+    \begin{description}
+        \item[L1]
+        \item[L2] Can be defined as:
+            \begin{align}
+                \phi^{2} = \phi \times \phi =
+                \dots = \int{\phi (x)^{2}  dx} \\
+                |x| = \sqrt{ \sum\limits_{k = 1}^{n}{x_{k}|^{2}}}
+            \end{align}
+    \end{description}
+
+    $\frac{1}{p}$.  
+\end{definition}
 
 \begin{definition}[Normalization of vectors]
     $ \hat{X} \equiv \frac{X}{|X|} $, where $|x|$ is the~\nameref{vectorlength}
@@ -167,6 +184,12 @@ $\frac{1}{p}$.  \end{definition}
     Note that here it is apossible to get free variables for 
     some x, and bound to others.
 
+\end{definition}
+
+\begin{definition}[Numerical stability]
+    This concept describes how changes in the input should not affect the result.
+    An example could be that sorting a list should not change the outcome from
+    applying a function to the input.
 \end{definition}
 
 
@@ -183,6 +206,12 @@ $\frac{1}{p}$.  \end{definition}
             $Q \times Q^{T} = I$
     \end{itemize}
 \end{definition}
+
+\begin{definition}[Orthonormal]
+    In~\nameref{innerprod} space are orthonormal if they are
+    orthogonal and unit vectors.
+\end{definition}
+
 
 \begin{definition}[Perpendicular]
     Similar to~\nameref{orthogonal}, but with lines.

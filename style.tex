@@ -1,0 +1,14 @@
+
+\newcommand\Header{%
+    \begin{tikzpicture}[remember picture,overlay]
+        \fill[mygreen]
+        (current page.north west) -- (current page.north east) --
+        ([yshift=50pt]current page.north east|-current page text area.north east) --
+        ([yshift=50pt,xshift=-3cm]current page.north|-current page text area.north) --
+        ([yshift=10pt,xshift=-5cm]current page.north|-current page text area.north) --
+        ([yshift=10pt]current page.north west|-current page text area.north west) -- cycle;
+    \node[font=\sffamily\bfseries\color{white},anchor=east,
+        xshift=-1.5cm,yshift=-1.3cm] at (current page.north east)
+        {\fontsize{50}{60}\selectfont d3pd Bulletin};
+    \end{tikzpicture}%
+}
