@@ -12,11 +12,12 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{kpfonts}
 \usepackage{lipsum}
 \usepackage{longtable}
 \usepackage{thmtools}
 \usepackage{tikz, tikzpagenodes}
-\usepackage{titlesec}
+\usepackage{titletoc,titlesec}
 \usepackage{tocloft}
 \usepackage{wrapfig}
 \usetikzlibrary{positioning}
@@ -66,7 +67,7 @@
        {}% formatting commands applied just to subsection title
        []% punctuation or other commands following subsection title
 \author{Anders Sildnes\\
-	NTNU}
+    NTNU}
 \date{\today}
 
 \renewcommand\epigraphflush{flushright}
@@ -86,10 +87,11 @@
     \texttt{andsild@gmail.com}\vspace{20pt} \\
 }
 
-\definecolor{mygreen}{RGB}{25,170,75}
-
-\definecolor{mygreen}{RGB}{25,170,75}
+% \definecolor{mygreen}{RGB}{25,170,75}
+\definecolor{mygreen}{RGB}{133,149,192}
+\definecolor{doc}{RGB}{0,60,110}
 \newcommand\Header{%
+
 \begin{tikzpicture}[remember picture,overlay]
 \fill[mygreen]
   (current page.north west) -- (current page.north east) --
@@ -98,8 +100,8 @@
   ([yshift=10pt,xshift=-5cm]current page.north|-current page text area.north) --
   ([yshift=10pt]current page.north west|-current page text area.north west) -- cycle;
 \node[font=\sffamily\bfseries\color{white},anchor=east,
-  xshift=-5.2cm,yshift=-1.0cm] at (current page.north east)
-  {\fontsize{50}{60}\selectfont Notes and definitions};
+  xshift=-3.2cm,yshift=-1.0cm] at (current page.north east)
+  {\fontsize{30}{60}\selectfont Notes and definitions};
 \end{tikzpicture}%
 }
 \newcommand\Footer{%
@@ -113,6 +115,71 @@
 \node[yshift=0.75cm,font=\ttfamily\bfseries\color{white}] at (current page.south) {\fontsize{20}{24}\selectfont www.stackexchange.com};
 \end{tikzpicture}%
 }
+
+
+
+
+
+
+
+
+
+
+\titlecontents{chapter}[0pc]
+{\addvspace{20pt}%
+\begin{tikzpicture}[remember picture, overlay]%
+\draw[fill=doc!30,draw=doc!30] (-3,-.1) rectangle (-.5,.5);%
+\pgftext[left,x=-2.9cm,y=0.2cm]{\color{white}\Large\sc\bfseries chapter\ \thecontentslabel};%
+\end{tikzpicture}\color{doc!40}\large\sc\bfseries}%
+{}
+{}
+{\;\titlerule\;\large\sc\bfseries Page \thecontentspage
+\begin{tikzpicture}[remember picture, overlay]
+\draw[fill=doc!25,draw=doc!20] (2pt,0) rectangle (6,0.1pt);
+\end{tikzpicture}}%
+\titlecontents{section}[2.4pc]
+{\addvspace{1pt}}
+{\contentslabel[\thecontentslabel]{2.4pc}}
+{}
+{\hfill\small \thecontentspage}
+[]
+\titlecontents*{subsection}[4pc]
+{\addvspace{-1pt}\small}
+{}
+{}
+{\ --- \small\thecontentspage}
+[ \textbullet\ ][]
+
+\makeatletter
+\renewcommand{\tableofcontents}{%
+\chapter*{%
+\vspace*{-20\p@}%
+\begin{tikzpicture}[remember picture, overlay]%
+\pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
+\draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
+\clip (13,-.75) rectangle (20,1);
+\pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+\end{tikzpicture}}%
+\@starttoc{toc}}
+\makeatother
+
+\makeatletter
+\renewcommand{\listoffigures}{%
+\captionof*{aaa%
+\vspace*{-20\p@}%
+\begin{tikzpicture}[remember picture, overlay]%
+\pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
+\draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
+\clip (13,-.75) rectangle (20,1);
+\pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+\end{tikzpicture}}%
+\@starttoc{toc}}
+\makeatother
+
+
+
+
+
 
 
 % \pagestyle{empty}
@@ -142,8 +209,8 @@
 \listoftables
 \pagebreak
 % \newgeometry{left=30mm}
-\newgeometry{hmargin=2cm,bmargin=3cm,tmargin=4.5cm,centering}
 
+\newgeometry{hmargin=2cm,bmargin=3cm,tmargin=4.5cm,centering}
 \chapter{Words and Definitions}
 \include{src/def/algorithm}
 \include{src/def/calculus}
@@ -158,6 +225,7 @@
 \chapter{Algorithms and Methods}
 \include{src/methods/algorithms}
 \include{src/methods/prog_sec}
+\include{src/methods/vim}
 \include{src/methods/debugging}
 
 

@@ -1,0 +1,39 @@
+\section{Vim}
+
+\subsection{Search and Replace}
+\begin{longtable}{l l}
+    \verb|v/pattern/d| & delete every line not matching the pattern \\
+    \verb|g/pattern/d| & delete every line matching pattern \\
+    \verb|s/pattern/subst/flag| & substitute pattern with string,
+                                  flag to specify how\\
+\end{longtable}
+
+\subsubsection{Vim-regex}
+
+\begin{tabular}{|p{5cm}| p{10cm}|}
+    \hline
+    \verb~\{-}~ & similar to .*, except that it is not greedy. The hyphen can also
+    be of form n,m where n denotes the minimal,maximum count respecitvely. \\
+    \hline
+
+    \verb~Prefix_pattern\zsMid_pattern\zeSuffix_pattern~
+    & where:
+    \begin{description}
+        \item[Prefix pattern] is a part of the match we do \textit{not} care about.
+            This is delimited by \verb~\zs~ (pattern begin).
+        \item[Midpattern] is what we are replacing. This is because of the
+            \verb~\zs~ and \verb~\ze~ surrounding.
+        \item[Suffix pattern] will also not be replaced because of \verb~\ze~.
+    \end{description}
+    Note that \verb~\ze~ and \verb~\zs~ can be used individually.
+\end{tabular}
+
+
+\subsubsection{Examples}
+
+\begin{longtable}{l l}
+    delete every line not matching format 0.00 0.099, and keep newlines & 
+    \verb~%s/^$/AB0\.1/g | v/[0-9]\./d | %s/AB0\.1//g~ \\
+    delete trailing whitespace & \verb~ %s/\s\+$//g~ \\
+    leading & \verb~%s/^\s\+//g~ \\
+\end{longtable}
