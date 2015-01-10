@@ -353,6 +353,17 @@ discontinuous.
    A distribution without steps, i.e.\ it is continious. 
 \end{definition}
 
+\begin{definition}[Group]
+    A set and an operator, such that if you take two elements from the set,
+    apply the operator to them, then you will ``receive'' an element that
+    could also be a part of the set (closure). Also it must satisfy for
+    $\forall{a,b} \in S \rightarrow, (a \cdot b) \cdot c = a \cdot (b \cdot c)$ (associativity),
+    \dots also indentity and inverses.
+    Example: integers and ``+''.
+
+    Groups have symmetry.
+\end{definition}
+
 \begin{definition}[Harmonic numbers]
     $H_{n} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + {1}{n} =
     {\sum\limits_{k = 1}^{k}} \frac{1}{k} \simeq \ln n$
@@ -416,7 +427,7 @@ discontinuous.
         \int_{a}^{b}x^{n} dx = \frac{x^{n+1}}{n+1} + C \\
     \end{align}
 
-    A function is said to be \textit{locally integrable} if it 's integral is 
+    A function is said to be \textit{locally integrable} if it's integral is 
     finite in a given domain.
 
     \textbf{Integration by parts:} $\int{u \times v dx} = u\int{v dx} - \int{u\prime{(v dx}}dx $
@@ -508,7 +519,7 @@ discontinuous.
 \end{definition}
 
 \begin{definition}[Moment]
-    TBD.
+    TBD.\
 \end{definition}
 
 \begin{definition}[Numerical analysis]
@@ -516,7 +527,7 @@ discontinuous.
     general symbolic manipulations) for the problems of mathematical analysis.
 
     Given a space $V$, find a finite subspace of $V$, such that you can
-    calculate on it..
+    calculate on it\dots
 
     \includegraphics[scale=1.0]{fem.png}
     A function in  with zero values at the endpoints (blue), and a piecewise
@@ -525,7 +536,7 @@ discontinuous.
 \end{definition}
 
 \begin{definition}[Odd function]\label{oddfunc}
-    A function with the same values when you rotate 180 degrees around...
+A function with the same values when you rotate 180 degrees around\dotso{}
     \begin{align}
         - f(x) &= f(-x) \\
         f(x) + f(-x) &= 0
@@ -669,6 +680,10 @@ where:
 \begin{definition}[Shift invariant system]
     A discrete form of~\nameref{TIS} - the timesteps are discretized to follow
     a lattice spacing.
+\end{definition}
+
+\begin{definition}[Stationary point]
+    A place in which the derivative is zero.
 \end{definition}
 
 \begin{definition}[Symmetric function]

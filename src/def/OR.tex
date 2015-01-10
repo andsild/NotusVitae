@@ -4,6 +4,19 @@ A solution that lies at the corner of a feasible region (solution space)
 If a solution has only one feasible solution, it must be a CPF
 \end{definition}
 
+\begin{definition}[KKT-conditions]
+\begin{enumerate}
+    \item $\frac{\partial{f}}{\partial{x_{j}}} - \sum\limits_{i=1}^{m} u_i
+        \frac{\partial{g_i}}{\partial{x_j}} \leq 0 $
+    \item $x_j^{*}(\frac{\partial{f}}{\partial{x_{j}}} - \sum\limits_{i=1}^{m} u_i
+        \frac{\partial{g_i}}{\partial{x_j}}) = 0 $
+    \item $g_i(x^{*}) - b_i \leq 0$
+    \item $u_i(g_i(x^{*}) - b_i) \leq 0$
+    \item $x_j^{*} \geq 0$
+    \item $u_j^{*} \geq 0$
+\end{enumerate}
+\end{definition}
+
 \begin{definition}[Feasile region]
     Aka solution space. The set of all valid solutions, i.e. those that do not
     violate constraints.
