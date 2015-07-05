@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYGdefault{n}{getFilename} \PYGdefault{o+ow}{::} \PYGdefault{k+kt}{String} \PYGdefault{o+ow}{\PYGdefaultZhy{}\PYGdefaultZgt{}} \PYGdefault{k+kt}{IO} \PYGdefault{k+kt}{String}
+    \PYGdefault{n}{getFilename} \PYGdefault{n}{file} \PYGdefault{o+ow}{=} \PYGdefault{k+kr}{do}
+        \PYGdefault{n}{bool} \PYGdefault{o+ow}{\PYGdefaultZlt{}\PYGdefaultZhy{}} \PYGdefault{n}{doesFileExist} \PYGdefault{n}{file}
+        \PYGdefault{k+kr}{if} \PYGdefault{n}{bool}
+        \PYGdefault{k+kr}{then} \PYGdefault{n}{return} \PYGdefault{n}{file}
+        \PYGdefault{k+kr}{else} \PYGdefault{n}{return} \PYGdefault{l+s}{\PYGdefaultZdq{}batman.wav\PYGdefaultZdq{}}
+\end{Verbatim}

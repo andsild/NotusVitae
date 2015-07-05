@@ -45,8 +45,23 @@ twidth he buffer is full (usually 512 bytes).
     Guards are indicated by pipes that follow a function's name and its
     parameters. They evaluate to true or false, and then the following
     function body is used in case of true.
-
 \end{definition}
+
+\begin{definition}[return]
+    Turn a type into IO.\
+    E.g.
+    \begin{minted}{haskell}
+    getFilename :: String -> IO String
+    getFilename file = do
+        bool <- doesFileExist file
+        if bool
+        then return file
+        else return "batman.wav" 
+    \end{minted}
+
+    Where the safe ``file'' is returnned as IO String
+\end{definition}
+
 
 \section{More words and def\dots}
 
@@ -111,6 +126,7 @@ twidth he buffer is full (usually 512 bytes).
     also~\nameref{concurrency}.
 
 \end{definition}
+
 
 \begin{definition}[Strict variable]
     A variable with a determined typed. E.g.\ writing "int myvar = 5" instead

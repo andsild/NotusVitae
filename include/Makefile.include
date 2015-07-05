@@ -14,7 +14,7 @@ all:    $(MAIN).pdf
 	touch .refresh
 
 $(MAIN).pdf: $(MAIN).tex .refresh $(SOURCES) # $(FIGURES)
-	$(LATEXMK) -jobname=${BUILD_DIR}report -pdf $(MAIN).tex
+	$(LATEXMK) --shell-escape -jobname=${BUILD_DIR}report -pdf $(MAIN).tex
 
 force:
 	touch .refresh
