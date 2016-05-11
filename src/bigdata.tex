@@ -14,5 +14,47 @@
 \end{definition}
 
 \begin{proof}
-Assume a system has two nodes: A and B.  To achieve 
+Assume a system has two nodes: A and B. A and B cannot communicate.
+We write data X to node A and B. Then, we write $X'$ to node A. Following that we want to read $X$ from node B.
+If node A and B do not talk together, we will not achieve consistency (node B doesn't know X is updated in A).
+This also means we struggle with availibility: $X'$ has not been written to both nodes.
+If we do let node A and B talk together, then node B depends on A, so we are not parition tolerant.
+Hence, achieving all three letters is not possible in this case.
 \end{proof}
+
+Q:\@ how can a join be affected by whether or not we sort the output?
+\newline A:\@ dwa.
+
+Q:\@ discuss joins in relation with parallelism?
+\newline A:\@ ah. 
+
+Q:\@ describe diffs in traditional DBMS and data streams.
+\newline A:\@ ah. 
+
+Q:\@ Main principles GFS
+\newline A:\@ ah. 
+
+Q:\@ explain use of histograms for optimization
+\newline A:\@ ah.
+
+Q:\@ explain use of histograms for optimization
+\newline A:\@ ah.
+
+Q:\@ explain use of histograms for optimization
+\newline A:\@ ah.
+
+
+Q:\@ Should file partitions always have the same size?
+\newline A:\@ ah.
+
+Q:\@ Discuss parallelism in light of normal queries to a DBMS
+\newline A:\@ ah.
+
+Q:\@ Discuss parallelism in light of normal queries to a DBMS
+\newline A:\@ ah.
+
+Q:\@ Explain a sliding window in streaming systems
+\newline A:\@ ah.
+
+\subsection{HDFS}
+A file-storage system. The idea is to provide high availibility and 
