@@ -4,11 +4,11 @@
 You insert a car key into a car engine. The engine would now like to know
 that this key is valid.
 
-Let $K$ be the key, and $E$ the engine. Then,:
+Let $K$ be the key, and $E$ the engine. Then:
 \begin{gather}
     \begin{align}
         &E \rightarrow K: N \\
-        &K \rightarrow E: \{E, N\}_{K}
+        &K \rightarrow E: {\{E, N\}}_{K}
     \end{align}
 \end{gather}
 
@@ -20,7 +20,7 @@ and get valid number, will it start.
 \subsection{Needham-Schroeder Protocol}
 A primitive, three-way~\nameref{keydistribution} process. Also known
 to inspire Kerberos%
-\footnote{originally from Greek/Roman mythology, a three-headed dog, or "hellhound",
+\footnote{originally from Greek/Roman mythology, a three-headed dog, or ``hellhound'',
     which guards the entrance of Hades.},
 the security protocol in windows. The word \textit{primitive} is used to 
 emphasize that the protocol comes from an age where attacks were
@@ -35,7 +35,7 @@ be somewhat intuitive:
 \begin{gather}
     \begin{align}
         &A \rightarrow S: A,B,N_{A}  \\
-        &S \rightarrow A: \{N_A, K_{AB}, B, \{K_{AB}, A\}_{K_{BS}}\}_{K_{AS}} \\ 
+        &S \rightarrow A: {{\{N_A, K_{AB}, B, \{K_{AB}, A\}}_{K_{BS}}\}}_{K_{AS}} \\ 
         &A \rightarrow B: \{K_{AB}, A\}_{K_{BS}} \\ 
         &B \rightarrow A: \{N_B\}_{K_{AB}} \\
         &A \rightarrow B: \{N_B-1\}_{K_{AB}}
@@ -55,7 +55,7 @@ inteded for his use to Alice.
 In step 3, Alice sends $\kappa$ to Bob. Bob can decrypt with his key, given
 to him earlier by Sam. Finally, to ensure that no data has been corrupted
 by Eve or other errors, the last two steps verify the legimiticay of the keys.
-Should Alice fail to return back $N_{B} - 1$, that is, a nonce from Bob - 1,
+Should Alice fail to return back $N_{B} - 1$, that is, a nonce from Bob$ - 1$,
 then Bob can know that he is not talking to a valid user.
 
 One easy to understand flaw in this system is that if someone is able 

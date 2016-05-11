@@ -31,7 +31,7 @@
 \setlength\epigraphwidth{15cm}
 \setlength\epigraphrule{0pt} % line between quote and quoter
 \makeatletter
-\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{} % italics 
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}\/}{}{} % italics 
 \makeatother
 
 % To sort the definitions:
@@ -118,64 +118,57 @@
 }
 
 
-
-
-
-
-
-
-
-
-\titlecontents{chapter}[0pc]
-{\addvspace{20pt}%
-\begin{tikzpicture}[remember picture, overlay]%
-\draw[fill=doc!30,draw=doc!30] (-3,-.1) rectangle (-.5,.5);%
-\pgftext[left,x=-2.9cm,y=0.2cm]{\color{white}\Large\sc\bfseries chapter\ \thecontentslabel};%
-\end{tikzpicture}\color{doc!40}\large\sc\bfseries}%
-{}
-{}
-{\;\titlerule\;\large\sc\bfseries Page \thecontentspage
-\begin{tikzpicture}[remember picture, overlay]
-\draw[fill=doc!25,draw=doc!20] (2pt,0) rectangle (6,0.1pt);
-\end{tikzpicture}}%
-\titlecontents{section}[2.4pc]
-{\addvspace{1pt}}
-{\contentslabel[\thecontentslabel]{2.4pc}}
-{}
-{\hfill\small \thecontentspage}
-[]
-\titlecontents*{subsection}[4pc]
-{\addvspace{-1pt}\small}
-{}
-{}
-{\ --- \small\thecontentspage}
-[ \textbullet\ ][]
-
-\makeatletter
-\renewcommand{\tableofcontents}{%
-\chapter*{%
-\vspace*{-20\p@}%
-\begin{tikzpicture}[remember picture, overlay]%
-\pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
-\draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
-\clip (13,-.75) rectangle (20,1);
-\pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
-\end{tikzpicture}}%
-\@starttoc{toc}}
-\makeatother
-
-\makeatletter
-\renewcommand{\listoffigures}{%
-\captionof*{aaa%
-\vspace*{-20\p@}%
-\begin{tikzpicture}[remember picture, overlay]%
-\pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
-\draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
-\clip (13,-.75) rectangle (20,1);
-\pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
-\end{tikzpicture}}%
-\@starttoc{toc}}
-\makeatother
+% \titlecontents{chapter}[0pc]
+% {\addvspace{20pt}%
+% \begin{tikzpicture}[remember picture, overlay]%
+% \draw[fill=doc!30,draw=doc!30] (-3,-.1) rectangle (-.5,.5);%
+% \pgftext[left,x=-2.9cm,y=0.2cm]{\color{white}\Large\sc\bfseries chapter\ \thecontentslabel};%
+% \end{tikzpicture}
+% \color{doc!40}\large\sc\bfseries}%
+% {}
+% {}
+% \;\titlerule\;\large\sc\bfseries Page \thecontentspage%
+% \begin{tikzpicture}[remember picture, overlay]
+% \draw[fill=doc!25,draw=doc!20] (2pt,0) rectangle (6,0.1pt);
+% \end{tikzpicture} % had braces here
+% \titlecontents{section}[2.4pc]
+% {\addvspace{1pt}}
+% {\contentslabel[\thecontentslabel]{2.4pc}}
+% {}
+% {\hfill\small \thecontentspage}
+% []
+% \titlecontents*{subsection}[4pc]
+% {\addvspace{-1pt}\small}
+% {}
+% {}
+% {\ --- \small\thecontentspage}
+% [ \textbullet\ ][]
+%
+% \makeatletter
+% % \chapter*{%
+% \renewcommand{\tableofcontents}{%
+% \vspace*{-20\p@}%
+% \begin{tikzpicture}[remember picture, overlay]%
+% \pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
+% \draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
+% \clip (13,-.75) rectangle (20,1);
+% \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+% \end{tikzpicture}%
+% \@starttoc{toc}}
+% \makeatother
+%
+% \makeatletter
+% \renewcommand{\listoffigures}{%
+% \captionof*{aaa}
+% \vspace*{-20\p@}%
+% \begin{tikzpicture}[remember picture, overlay]%
+% \pgftext[right,x=05cm,y=0.2cm]{\color{doc!30}\Huge\sc\bfseries \contentsname};%
+% \draw[fill=doc!30,draw=doc!30] (13,-.75) rectangle (20,1);%
+% \clip (13,-.75) rectangle (20,1);
+% \pgftext[right,x=15cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
+% \end{tikzpicture}%
+% \@starttoc{toc}}
+% \makeatother
 
 
 
@@ -225,6 +218,7 @@
 \include{src/def/programming}
 
 \chapter{Algorithms and Methods}
+\include{src/bigdata}
 \include{src/methods/algorithms}
 \include{src/methods/prog_sec}
 \include{src/methods/vim}

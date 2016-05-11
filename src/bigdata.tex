@@ -1,0 +1,18 @@
+\section{Big Data}
+\begin{definition}[CAP theorem]\label{def:captheorem}
+    Working with Big Data involves dealing with inputs so large that conventional methods do not work.
+    This also involves that we have to compromise, not opting for ``optimal'' solutions like RDMS.\
+    We have 
+    \begin{description}
+        \item[Consistency:] Whether or not copies of data are the same across all nodes.
+        For example, having a server in London with data X and another server in USA with data X', where X' is intended to be equal to X, but it is not.
+        \item[Availibility:] Whether or not we can guarantee success or failure (alternatively: every request returns a non-error response).
+        \item[Partition tolerance]:  If a node goes down, will the system continue to operate?
+    \end{description}
+
+    The CAP theorem states that any big-data system can only acheive two out of tree letters (CA, CP or AP).
+\end{definition}
+
+\begin{proof}
+Assume a system has two nodes: A and B.  To achieve 
+\end{proof}

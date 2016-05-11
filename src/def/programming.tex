@@ -1,9 +1,9 @@
 \section{C++}
 
-const \textless{C}\textgreater\& function \{\ return FOO; \}
+const \textless{C}\textgreater\& function \{\ return FOO;\ \}
 means it will return a constant reference to C
 
-\textless{C}\textgreater\& function const \{\ return FOO; \}
+\textless{C}\textgreater\& function const \{\ return FOO;\ \}
 means it will not modify any data in C.
 
 const char *var is a pointer to a constant value, not a const pointer
@@ -12,7 +12,7 @@ const char *var is a pointer to a constant value, not a const pointer
 
 std::vector\textless{T}\textgreater will typically allocate space in $2^{n}$, where n is minimal.
 Whenever n increases, a new buffer is allocated, which means that it will
-have to iterate over all it's former elements - giving ${2^n+1}$ iterations.
+have to iterate over all it's former elements, giving ${2^n+1}$ iterations.
 Hence, one should pre-allocate the space needed when possible.
 
 Whenever you use cout to output something, ostream buffers it but does not send

@@ -17,7 +17,7 @@ Objective: solve TSP with $\frac{3}{2}$-approximation
     \item Construct MST
     \item Give each node a redundant entry (graph can now be traversed like
             an~\nameref{eularian} graph)
-    \item Traverse the nodes from start to finish(DFS), but only retain the first
+    \item Traverse the nodes from start to finish (DFS), but only retain the first
         time occurence of a city
 \end{enumerate}
 
@@ -25,7 +25,7 @@ Objective: solve TSP with $\frac{3}{2}$-approximation
 Assign all nodes distance = $\infty$
 Start at given node $s$. Assign all neighboring nodes their distance from $s$
 to $n$. Proceed to the lowest cost. Repeat. Whenever a better match is found,
-use the new path instead. The result is a path from $s$ to $t$, or an MST.
+use the new path instead. The result is a path from $s$ to $t$, or an MST.\
 
 \subsection{K-center}
 2-approximation. A form of clustering.
@@ -38,7 +38,7 @@ use the new path instead. The result is a path from $s$ to $t$, or an MST.
 
 \subsection{Kruskal's algorithm}
 Always choose cheapest edge that does not include two pre-discovered nodes.
-Returns MST.
+Returns MST.\
 
 \subsection{Nearest addition}
 2-approximation
@@ -69,7 +69,7 @@ Never choose an edge that leads to a pre-discovered vertex.
 
         We can now bound the maximal finishing time: 
         $$
-            C_{max} \leq t + p_{l} \leq OPT + p_{l}\times (1 - \frac{1}{m}) 
+            C_{\max} \leq t + p_{l} \leq OPT + p_{l}\times (1 - \frac{1}{m}) 
             \leq (2 - \frac{1}{m})\times OPT
         $$
     \end{proof}

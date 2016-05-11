@@ -36,7 +36,7 @@
     Properties:
     \begin{itemize}
         \item $\arcsin{x} = \frac{\pi}{2} - \arccos{x} = 90º - \arccos{x}$
-        \item $\cos{(\arcsin{x}} = \sin{(\arccos{x})} = \sqrt{1-x^{2}}{}$
+        \item $\cos{(\arcsin{x})} = \sin{(\arccos{x})} = \sqrt{1-x^{2}}$
         \item $ x = -1 \rightarrow \arcsin{x} = -1\times\frac{\pi}{2}$
         \item $ x = 1 \rightarrow \arcsin{x} = \frac{\pi}{2}$
         \item $ x = 0 \rightarrow \arcsin{x} = 0$
@@ -124,8 +124,8 @@
         the other.
 
     Can also be used to smoothen a discontinous a function (making it continous 
-    on the given range). We need to normalize our g(x - $\tau$) so that we do
-    not continously increase the f(x)
+    on the given range). We need to normalize our $g(x - \tau)$ so that we do
+    not continously increase the $f(x)$
 
     A convolution in time domain is equal to multiplication in frequency domain.
 
@@ -134,12 +134,12 @@
 
 \begin{definition}[Continuous]
 In mathematics, a continuous function is a function for which
-"small" changes in the input result in "small" changes in the output.
+``small'' changes in the input result in ``small'' changes in the output.
 
-As an example, consider the function h(t), which describes the height of a
-growing flower at time t. This function is continuous. By contrast, if M(t)
+As an example, consider the function $h(t)$, which describes the height of a
+growing flower at time t. This function is continuous. By contrast, if $M(t)$
 denotes the amount of money in a bank account at time t, then the function
-jumps whenever money is deposited or withdrawn, so the function M(t) is
+jumps whenever money is deposited or withdrawn, so the function $M(t)$ is
 discontinuous.
 
 \end{definition}
@@ -330,7 +330,7 @@ discontinuous.
     a translated domain.
 
     Fourier transforms have the property that they can cover all the frequencies
-    from the original input, but the mapped frequency loses the time domain -
+    from the original input, but the mapped frequency loses the time domain:
     one can not determine at what time what frequency ``stuff''  was sent.
 
 \end{definition}
@@ -365,7 +365,7 @@ discontinuous.
 \end{definition}
 
 \begin{definition}[Harmonic numbers]
-    $H_{n} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + {1}{n} =
+    $H_{n} = 1 + \frac{1}{2} + \frac{1}{3} + \cdots + {1}{n} =
     {\sum\limits_{k = 1}^{k}} \frac{1}{k} \simeq \ln n$
 \end{definition}
 
@@ -396,7 +396,7 @@ discontinuous.
 \end{definition}
 
 \begin{definition}[Identity function]
-    $\forall{x}, f(x) = x$
+    $\forall{x}, f (x) = x$
 \end{definition}
 
 \begin{definition}[Implicit method]\label{implicitmethod}
@@ -407,7 +407,7 @@ discontinuous.
 
 \begin{definition}[Idempotence]
     An operation that can be applied multiple times without changing the
-    the result. E.g.\ $f(f(x) = f(x)$
+    the result. E.g.\ $f (f (x)) = f (x) $
 \end{definition}
 
 \begin{definition}[Idenpendent variable]
@@ -430,7 +430,7 @@ discontinuous.
     A function is said to be \textit{locally integrable} if it's integral is 
     finite in a given domain.
 
-    \textbf{Integration by parts:} $\int{u \times v dx} = u\int{v dx} - \int{u\prime{(v dx}}dx $
+    \textbf{Integration by parts:} $\int{u \times v dx} = u\int{v dx} - \int{u\prime{(v dx)}}dx $
 
     Some identities:
     \begin{longtable}{|l|l|}
@@ -560,6 +560,7 @@ A function with the same values when you rotate 180 degrees around\dotso{}
         y = \sin{t}
     \end{align}
     is the parametric representation of a unit circle.
+\end{definition}
 
 \begin{definition}[Partial derivative]
     Given a function $f$ with multiple parameters, a partial derivative is a
@@ -570,8 +571,6 @@ A function with the same values when you rotate 180 degrees around\dotso{}
     To use partial derivation, you often assume that the other variables are 
     constants. Otherwise, there is an infinite number of tangent lines at
     any point, so you will have to have some range on the tangents.
-
-\end{definition}
 
 \end{definition}
 
@@ -606,7 +605,7 @@ A function with the same values when you rotate 180 degrees around\dotso{}
 
 \begin{definition}[Reference value]
     The optimal/starting value. Note that when calculating differences,
-    a reference value implies that order matters, i.e.\ $x - y \neq y - x$.
+    a reference value implies that order matters, i.e.\ $ x - y \neq y - x$.
 
 \end{definition}
 
