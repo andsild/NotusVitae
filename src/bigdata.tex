@@ -22,39 +22,73 @@ If we do let node A and B talk together, then node B depends on A, so we are not
 Hence, achieving all three letters is not possible in this case.
 \end{proof}
 
+\begin{definition}[At-least-once ingestion]\label{def:atleastonce}
+    If any message is lost, retransmit it. Thus, we can guarantee that a message will be received.
+    There is a possibility of duplicates.
+\end{definition}
+
+\begin{definition}[At-most-once ingestion]\label{def:atmostonce}
+    Every message will be sent, but at most one time.
+    There is a possibility of duplicates.
+\end{definition}
+
+\begin{definition}[Exactly once ingestion]\label{def:exactlyonce}
+    Every message is delivered once. No duplicates. Hard to implement (you need to retain data for a longer amount of time and have synchronization protocols).
+\end{definition}
+
+\begin{definition}[Equi-depth histogram]\label{def:equidepthhistogram}
+Take query: 
+\begin{verbatim} SELECT * FROM Person WHERE AGE > 24 \end{verbatim}.
+Here, we can optimize the query by using an equidepth histogram:
+instead of preparing to return each row, we first process the $AGE$ column and count 
+how many occurences we get. Then, we estimate parallelism, return size, etc, and return queries.
+If $AGE$ is indexed, we could make estimates like  this in $O(1)$.
+\end{definition}
+
+\begin{definition}[Equi-width histogram]
+    Similar to \nameref{def:equidepthhistogram}, except we fix bucket sizes.
+    For example, for an age query we don't return the number of people above a threshold age,
+    instead we bucketize, e.g. everyone under 24 in one bucket, everyone over 24 in another,
+    or splitting per 5 years, etc.
+\end{definition}
+
+
 Q:\@ how can a join be affected by whether or not we sort the output?
-\newline A:\@ dwa.
+\newline A:\@ When we do JOINS, we lookup keys from table X and Y. We put together keys from e.g. Y into table X. Therefore, table X needs to be either sorted or use some form of hashing scheme so that we can efficiently find the key in X that matches the key in Y.
+
+If data is assumed ordered, we save a great deal of time. All we need to do is iterate over table Y, and allocate each key to its corresponding bucket from table X. This will be joined data. We will not shuffle table X around much.  
 
 Q:\@ discuss joins in relation with parallelism?
-\newline A:\@ ah. 
+\newline A:\@ If we have multiple datanodes availible, we can do mapping 
+parallelized. There is more overhead since we need to merge partitions afterwards,
+but for large inputs the tradeoff is still positive.
 
 Q:\@ describe diffs in traditional DBMS and data streams.
 \newline A:\@ ah. 
-
-Q:\@ Main principles GFS
-\newline A:\@ ah. 
-
-Q:\@ explain use of histograms for optimization
-\newline A:\@ ah.
-
-Q:\@ explain use of histograms for optimization
-\newline A:\@ ah.
-
-Q:\@ explain use of histograms for optimization
-\newline A:\@ ah.
-
+There are some obvious differences in terms of technology. Streaming technology has key uses 
+in fields where automated decisions are necessary. It can be used for controlling prices, 
+shutting down faulting hardware or giving an early warning to monitoring analysts.
+They will not directly  support saving any form of state. Doing so introduces a significant overhead,
+and it may be worth-while to consider writing to disk first. 
+An interesting side-note is that some RDBMS like PostgreSQL offer \nameref{def:atmostonce} analysis, quick processing and horizontal scaling. For applications that need both streaming and storage, this can
+be a good alternative.
 
 Q:\@ Should file partitions always have the same size?
-\newline A:\@ ah.
-
-Q:\@ Discuss parallelism in light of normal queries to a DBMS
-\newline A:\@ ah.
-
-Q:\@ Discuss parallelism in light of normal queries to a DBMS
+It is interesting to note that if a partition is sufficiently small, it can fit into memory.
+Since memory can dynamic, varying partition size can be desirable to fit as much in memory as possible.
+Otherwise, it is usually preferable to choose a fixed partition size so that sharding and 
+other operations are easier, and to prevent stalls induced by having some nodes finish up
+before others due to a smaller partition sizes.
 \newline A:\@ ah.
 
 Q:\@ Explain a sliding window in streaming systems
-\newline A:\@ ah.
+\newline A:\@ Iterating over windows at a time. Entries are  iterated mutiple times since they
+will occur in multiple slides. Old data falls outside of the window because it is no longer relevant.
+
+\subsection*{Google File System (GFS)}
+One of the first file systems to scale with big data. The main idea is to replicate data
+exensively to provide high availibility and reduce transmission costs from having to send data on-demand.
+Data is most often ``written once, updated seldom'' which allows writes to be inefficient (unlike some other RDBMS).
 
 \subsection{HDFS}
 A file-storage system. The idea is to provide high availibility and 
