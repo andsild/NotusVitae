@@ -1,4 +1,15 @@
 \section{Big Data}
+\begin{definition}[ACID]\label{def:acid}
+    \begin{description}
+        \item[Atomicity:] An action will either completely fail or completely succeed, nothing  in between.
+        \item[Consistency:] An action will either completely fail or completely succeed, nothing  in between.
+        \item[Isolation:] Executing multiple actions simultaneously yields the same result as if all the actions
+            were executed serially (that is, no messing up because of pararell execution).
+        \item[Durability:] If an action is committed, it will remain in the system even if there are
+            power losses, crashes or errors.
+    \end{description}
+\end{definition}
+
 \begin{definition}[CAP theorem]\label{def:captheorem}
     Working with Big Data involves dealing with inputs so large that conventional methods do not work.
     This also involves that we have to compromise, not opting for ``optimal'' solutions like RDMS.\
@@ -21,6 +32,16 @@ This also means we struggle with availibility: $X'$ has not been written to both
 If we do let node A and B talk together, then node B depends on A, so we are not parition tolerant.
 Hence, achieving all three letters is not possible in this case.
 \end{proof}
+
+\begin{definition}[Five V's of Big Data]\label{def:fiveV}
+    \begin{description}
+        \item[Volume:] How much data do we have?
+        \item[Veracity:] Can we trust the data we have?
+        \item[Variety:] What types of data do we read?
+        \item[Value:] Is it really worth while to do big data solutions?
+        \item[Velocity:] How fast is data coming in?
+    \end{description}
+\end{definition}
 
 \begin{definition}[At-least-once ingestion]\label{def:atleastonce}
     If any message is lost, retransmit it. Thus, we can guarantee that a message will be received.
@@ -64,8 +85,7 @@ parallelized. There is more overhead since we need to merge partitions afterward
 but for large inputs the tradeoff is still positive.
 
 Q:\@ describe diffs in traditional DBMS and data streams.
-\newline A:\@ ah. 
-There are some obvious differences in terms of technology. Streaming technology has key uses 
+\newline A:\@ There are some obvious differences in terms of technology. Streaming technology has key uses 
 in fields where automated decisions are necessary. It can be used for controlling prices, 
 shutting down faulting hardware or giving an early warning to monitoring analysts.
 They will not directly  support saving any form of state. Doing so introduces a significant overhead,
@@ -74,6 +94,7 @@ An interesting side-note is that some RDBMS like PostgreSQL offer \nameref{def:a
 be a good alternative.
 
 Q:\@ Should file partitions always have the same size?
+A:\@
 It is interesting to note that if a partition is sufficiently small, it can fit into memory.
 Since memory can dynamic, varying partition size can be desirable to fit as much in memory as possible.
 Otherwise, it is usually preferable to choose a fixed partition size so that sharding and 
@@ -85,10 +106,78 @@ Q:\@ Explain a sliding window in streaming systems
 \newline A:\@ Iterating over windows at a time. Entries are  iterated mutiple times since they
 will occur in multiple slides. Old data falls outside of the window because it is no longer relevant.
 
-\subsection*{Google File System (GFS)}
+\subsubsection*{Google File System}\label{sec:GFS}
 One of the first file systems to scale with big data. The main idea is to replicate data
 exensively to provide high availibility and reduce transmission costs from having to send data on-demand.
-Data is most often ``written once, updated seldom'' which allows writes to be inefficient (unlike some other RDBMS).
+Data is most often ``written once, updated seldom'' which allows writes to be inefficient (unlike some other RDBMS). Aso, whenever you modify an entry, you typically prefer appending modifications rather than re-writing it.
+
+Another interesting feature of GFS is that it typically runs on commodity hardware rather than
+specialized computers. This induces a higher risk of hardware failure, which needs to be dealt with.
+One exapmle solution is to implement frequent ``heartbeats'' from commodity computers to a master node.
+
+GFS is optimized for MapReduce; the paritioning scheme makes map-reduce jobs simple.
+
+For security reasons, GFS also obfuscates its data with randomization algorithms.
 
 \subsection{HDFS}
-A file-storage system. The idea is to provide high availibility and 
+Very similar to \nameref{sec:GFS}. It was intended to be open-source alternative to GFS.\@
+It can now support more nodes and has different security/permissions model, often from POSIX.
+
+Consumed by HBase?
+
+\subsubsection*{Voldemort}
+\epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
+
+Used for LinkedIn and their data. It provides a data-store with key-value
+pairs. This is simple to deal with, but eliminates possibilities for comlex
+queries, foreign keys, triggers, etc.  Values can be either JSON or whatever format the user desires.
+The hashmaps can also be in-memory, meaning they're fast.
+
+Alike many other big data management systems, Voldemort focuses more on AP than
+consistency (see \nameref{def:captheorem}). The level of consistency can,
+however, be adjusted. What is interesting is that they do not satisfy all
+\nameref{def:acid} properties; data isolation is not ensured. 
+
+Voldemort is different than e.g. HBase in that they focus on having a large
+amount of writes in their systems.  In Hbase this is not prioritized,
+henceforth it is slow. Also, with the use of hashmaps, their data is inherently
+more unstructured.
+
+Voldemort has low latency, but not the best throughput (like Cassandra).
+
+\subsubsection*{MongoDB}
+\epigraph{MongoDB (from hu\textbf{mongo}us)}{Wikipedia}
+
+MongoDB stores data in BSON, i.e.\@ binary JSON. It can index its data in multiple ways:
+\begin{description}
+    \item[Array] Each entry of an array can be indexed
+    \item[Compound] Indexes built on multiple fields such as ``Name  + Age''
+    \item[Geospation] Coordinate points that refer to a location, etc
+    \item[Partial] Indexes that reflect data. For example get all customers that did something the last 24 hours
+    \item[Sparse] Index only documents that has a certain field (different from partial where the value of the field is used)
+    \item[TTL] Indices that expire after a given amount of time
+    \item[Text Search] Index a text and provide a key that indicates the text's relevance in accordance with query
+    \item[Unique] Normal ones!
+\end{description}
+
+Naturally, given the amount of indexes that can be used, there are also many queries.
+Some examples are geospatial queries, range queries and MapReduce. The latter is often
+executed as a javascript code query, a nifty feature of MongoDB.
+
+One other nifty feature of MongoDB is autosharding. As long as you provide clusters
+and computers, MongoDB is capable of balancing the load for you.
+
+A downside of MongoDB (and big data management systems in general) is that joins
+aren't supported natively. 
+
+With replicas, MongoDB always selectes a primary as the main provider for data.
+
+MongoDB compresses its data.
+
+MongoDB is ACID compliant at a document level. However, for updating all of its replicas, 
+there is a possibility (albeit small) that an error will occur. A use case that is particulary relevant
+is customer purchase: first remove item from the inventory, then add that item to a customer.
+Now you need to do two actions in one go. Normal RDBMS will handle this with transactions,
+however, in MongoDB there is a chance that you are able to remove the item from inventory, but not add
+it to the customer. If this happens, you are not \nameref{def:acid} at a higher level, although you have \nameref{def:acid} at document level. The property failing is (like Vodlemort) isolation.
+In regards to \nameref{def:captheorem}, MongoDB offers eventual consistency
