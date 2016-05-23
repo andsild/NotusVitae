@@ -1,4 +1,44 @@
 \section{Big Data}
+Data is aquired by sensor, simulations or feeds. Can we filter or compress the feed?
+Can we trust the sensors (are they faulty?)
+Information extraction: seeing structure in data, amending it where necesessary.
+Aggregation: heterogenous sources needs to integrate.
+Modeling. Note that the data can be noisy. Still might be worthy to visualize and interpret.
+
+Challenges: heterogenity, inconsistency, incompleteness, scale, timeliness\dots
+Privacy is also becoming an increasingly important concern now that we get data from just about everything.
+
+A trend in NoSQL and BDMS is horizontal scalibility over vertica. That is, we prefer having many 
+servers over one powerful one. Across these shards of data we do horizontal partitioning: one file is 
+split across nodes.
+
+Since NoSQL is inherently less structured, its queries are simpler, often a minima to provide CRUD operations. 
+
+There are four types of databanks for NoSQL DB's:
+\begin{enumerate}
+    \item \textbf{Document-based:} store a document and an ID, query by the ID.
+        \newline Example: \nameref{sec:mongodb}.
+    \item \textbf{key-value:} allow custom keys and custom values (e.g.\@ one document can have multiple indexes for multiple values).
+        \newline Example: \nameref{sec:cassandra}, \nameref{sec:voldemort}.
+    \item \textbf{column-based:} instead of just having documents, you structure each record with columns.
+        \newline Example: HBase
+    \item \textbf{Graph-based:} cool stuff. One cool advantage is the simple queries for complex operations.
+        \newline Example: \nameref{sec:neo4j}
+\end{enumerate}
+
+\begin{definition}[Log-structured Merge Tree]\label{def:LSM}
+    (LSM) A data-structure optimized for indexed access with a high insert volume.
+    It typically stores a lot of data in key-value form in-memory, and flushes out
+    when exceeding a memory threshold.
+\end{definition}
+
+\begin{definition}[Consistent hashing]\label{def:consistenthashing}
+    A hashing scheme that scales well. When you add keys (expand domain), you don't need to
+    remap the majority of the keys as you would have to in normal hashing.
+    This can be thought of as extending a simple hashing algorithm $h(x) = mod k$.
+    When we expand the domain of the function, it will simply result in a lower hashvalues that can
+    be used directly without changing other indices.
+\end{definition}
 \begin{definition}[ACID]\label{def:acid}
     \begin{description}
         \item[Atomicity:] An action will either completely fail or completely succeed, nothing  in between.
@@ -7,6 +47,15 @@
             were executed serially (that is, no messing up because of pararell execution).
         \item[Durability:] If an action is committed, it will remain in the system even if there are
             power losses, crashes or errors.
+    \end{description}
+\end{definition}
+
+\begin{definition}[BASE]\label{def:base}
+    An alternative way of analyzing DBMS. It is less strict than \nameref{def:acid}.
+    \begin{description}
+        \item[Basic Availibility] database should work most of the time
+        \item[Soft-state] replicas don't always have to be consistent
+        \item[Eventual consistency] An update doesn't have to be seen by all peers right away
     \end{description}
 \end{definition}
 
@@ -106,7 +155,7 @@ Q:\@ Explain a sliding window in streaming systems
 \newline A:\@ Iterating over windows at a time. Entries are  iterated mutiple times since they
 will occur in multiple slides. Old data falls outside of the window because it is no longer relevant.
 
-\subsubsection*{Google File System}\label{sec:GFS}
+\subsubsection{Google File System}\label{sec:GFS}
 One of the first file systems to scale with big data. The main idea is to replicate data
 exensively to provide high availibility and reduce transmission costs from having to send data on-demand.
 Data is most often ``written once, updated seldom'' which allows writes to be inefficient (unlike some other RDBMS). Aso, whenever you modify an entry, you typically prefer appending modifications rather than re-writing it.
@@ -119,13 +168,13 @@ GFS is optimized for MapReduce; the paritioning scheme makes map-reduce jobs sim
 
 For security reasons, GFS also obfuscates its data with randomization algorithms.
 
-\subsection{HDFS}
+\subsubsection{HDFS}\label{sec:HDFS}
 Very similar to \nameref{sec:GFS}. It was intended to be open-source alternative to GFS.\@
 It can now support more nodes and has different security/permissions model, often from POSIX.
 
 Consumed by HBase?
 
-\subsubsection*{Voldemort}
+\subsubsection{Voldemort}\label{sec:voldemort}
 \epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
 
 Used for LinkedIn and their data. It provides a data-store with key-value
@@ -133,9 +182,11 @@ pairs. This is simple to deal with, but eliminates possibilities for comlex
 queries, foreign keys, triggers, etc.  Values can be either JSON or whatever format the user desires.
 The hashmaps can also be in-memory, meaning they're fast.
 
-Alike many other big data management systems, Voldemort focuses more on AP than
+Alike many otherBDMS, Voldemort focuses more on AP than
 consistency (see \nameref{def:captheorem}). The level of consistency can,
-however, be adjusted. What is interesting is that they do not satisfy all
+however, be adjusted. Often, however, it is left to the client, who receives multiple
+copies of data if there is a risk of concurrent writes having corrupted a value.
+What is interesting is that they do not satisfy all
 \nameref{def:acid} properties; data isolation is not ensured. 
 
 Voldemort is different than e.g. HBase in that they focus on having a large
@@ -145,7 +196,7 @@ more unstructured.
 
 Voldemort has low latency, but not the best throughput (like Cassandra).
 
-\subsubsection*{MongoDB}
+\subsubsection{MongoDB}\label{sec:mongodb}
 \epigraph{MongoDB (from hu\textbf{mongo}us)}{Wikipedia}
 
 MongoDB stores data in BSON, i.e.\@ binary JSON. It can index its data in multiple ways:
@@ -167,7 +218,7 @@ executed as a javascript code query, a nifty feature of MongoDB.
 One other nifty feature of MongoDB is autosharding. As long as you provide clusters
 and computers, MongoDB is capable of balancing the load for you.
 
-A downside of MongoDB (and big data management systems in general) is that joins
+A downside of MongoDB (andBDMS in general) is that joins
 aren't supported natively. 
 
 With replicas, MongoDB always selectes a primary as the main provider for data.
@@ -181,3 +232,134 @@ Now you need to do two actions in one go. Normal RDBMS will handle this with tra
 however, in MongoDB there is a chance that you are able to remove the item from inventory, but not add
 it to the customer. If this happens, you are not \nameref{def:acid} at a higher level, although you have \nameref{def:acid} at document level. The property failing is (like Vodlemort) isolation.
 In regards to \nameref{def:captheorem}, MongoDB offers eventual consistency
+
+\subsubsection{Cassandra}\label{sec:cassandra}
+Developed at Facebook for inbox search.
+High throughput, but at the price of high write and read latency.
+Nodes are independent, but connected to all other nodes.
+
+Key-value ish, however, the value is highly structured (unlike other big data
+management systems).  Very scalable, as mostBDMS are.
+Uses \nameref{def:consistenthashing} to do so, and has different modes for replication
+such as ``rack aware'' and ``datacenter aware'' schemes.
+
+\subsubsection{Neo4j}\label{sec:neo4j}
+Intuitively cool, Neo4j is a graph database. It is \nameref{def:acid} compliant (notably, unlike the systems discussed above it has support for transactions).
+Queries are simple, even for complex joins. Unlike EER diagrams (which Neo4j might be
+similar to), vertices may have no type and relationships are directed.
+
+\subsubsection{AsterixDB}\label{sec:asterixdb}
+Like all other BDMS, AsterixDB comes with its own superflous words to describe
+normal things. The top-level node is called a \textit{dataverse}. Other papers describe
+dataverses as databases. Unlike other BDMS, AsterixDB has a strict type policy,
+which means that it will do type-checking on that data inserted into a dataverse.
+It is possible, however, to make a loose definition of type, thus allowing random data
+to enter the dataverse (naturally called having ``wiggle room'').
+
+Instead of using JSON, AsterixDB uses something called ADM: an
+extension of JSON. Keep in mind that it is still possible to have strict
+requirements for the structure of JSON data. 
+
+All data-records have a key. Keys can be composite or optimized for fuzzy string search.
+Each dataset has a $B^{+}$-tree with key-value pairs.
+
+AsterixDB can read non-indexed data, e.g.\@ loading a CSV-file. This will be mounted read-only.
+This helps them read data-feeds just as well as data from e.g.\@ HDFS. However, AsterixDB does not operate
+directly on the stream directly, it requires structuring data before queries are executed.
+The neat benefit from this is that AsterixDB hides complexity; quering a feed is exactly
+the same as quering a stored dataset from a developer point-of-view.
+
+Continuing in the BDMS-framework fashion, AsterixDB defines its own query language.
+AQL is similar to XQuery (for XML), except they claim AQL is simpler. AQL is compiled down to algebricks
+which can be optimized. The output is a (often parallel) Hyracks job.
+
+Keys are stored as 2-way \nameref{def:LSM}, which opens up for rapid insertions 
+(aka dealing with high ingestion).
+
+AsterixDB supports transactions and is thus ACID-compliant.
+
+
+\subsubsection{Storm}\label{sec:storm}
+Developed by Twitter, storm is real-time and fault-tolerant API/framework.
+
+To analyze storm we talk about data as directed edges in a graph, moving between vertices
+that represent computations. Data is in the form of a stream of tuples.
+Each graph is for whatever reason called a topology. In each vertex there are
+two disjoint sets: a spout and a bolt. The spout receives the data, and the bolts
+process them. Each bolt may direct its data back to a spout if it wants to (achieving cyclic iterations).
+
+Storm uses the concept of master and worker-nodes. The master node is responsible for delegation.
+A worker node can have multiple jobs, but only one topology at a time. Worker nodes have 
+monitors called supervisors that talk to the master node.
+Every relationship has synchronizations: the worker sends heartbeats to its supervisor, the supervisor
+synchronizes its master,  and the supervisor synchronizes its topology.
+
+Storm has a summingbird that can optimize queries for you.
+
+Storm has \nameref{def:atleastonce} and \nameref{def:atmostonce}. The former is ensured
+by adding ``acker'' bolts to tuples outputted from a spout. This is done by appending
+an ackerbolt to the topology and a 64-bit field-value to each tuple. The latter is
+ensured by default if \nameref{def:atleastonce} is disabled.
+
+
+\subsubsection{Yet Another Resource Negotiator}\label{sec:YARN}
+YARN has a resource manager per cluster. Inside each each cluster there are multiple
+node managers. The node managers manage containers, which is the equivalent of 
+a process.
+
+Clients can make resource requests, asking for locality of nodes or a given amount of memory.
+This is stated up front, but can also be changed dynamically.
+
+Allocation can be per-user, per-session or interchanged between users.
+Per-user is often used in MapReduce, where the client is given a set of nodes
+that are used once, and then released.
+A per-session is used for iterative jobs (common in e.g. \nameref{sec:spark}), so that
+after finishing the first stage of a job, the same nodes are allocated for the second iteration as well.
+The third is more appropriate if you for example have many jobs from different companies or applications
+and want to fix or avoid allocation errors (giving each company a set of nodes, for example).
+Also common for long-term jobs that go for several days and/or months.
+
+Comparing YARN to MapReduce 1, we see a bigger separation between entities. There 
+is no single jobtracker: its job is separated into resource manager, application masters
+and timeline servers. The improved structure allows them to scale more, provide higher
+availibility (eliminating/reducing single points of failure), utilize resources more effectively,
+and do multitenancy. The latter means that you can have multiple jobs on the same clusters. Furhtermore,
+it is no longer just MapReduce jobs that are executed, but other frameworks like Spark and Storm enter the scene.
+
+YARN has three schedulers. There is FIFO, Capacity and Fair schedulers.
+FIFO is simple to configure but doesn't scale well with large clusters.
+Capacity retains simplicity: it provides each user with a small, reserverd amount of resources.
+This pool of resources is seen as a small and private FIFO queue. If availible, the job will be upgraded
+with more resources to do its computations. Capacity is a good scheduling algorithm for multi-company uses
+of a WSC datacenter.  Fair scheduler dynamically allocates resources to jobs.
+When a single job is on the cluster, it receives full resource utilization. When another job comes in,
+it receives half of the resources, and so on.
+
+
+
+\subsubsection{Spark}\label{sec:spark}
+Arguably better for analytics than queries. This is because it primarily works on 
+\nameref{sec:HDFS}.
+
+One of Spark's genius concepts is to create small subsets of data seen as read-only objects with lazy evaluation.
+This means we can track \textit{lineage} and restore data upon failure. Also, their \textit{resilient distributed datasets} (RDD) are great for pararell and iterative executions of data.
+This is seen for example by \textit{persisting} RDDs, saving RDD-state and re-using them in several computations.
+Persistance can be done in-memory, to disk or both. Persisted RDD are immutable to ensure consistency.
+This is not a feature seen in e.g.\@ distributed shared memory (DSM). The advantage for the latter, however,
+is that modifying data is easier.
+
+\subsubsection{PageRank}
+Initially, give each node a rank. For example all nodes start with rank $\frac{1}{N}$, where N is the number of pages.
+Now, iterate over all the nodes, giving each node $x$ rank in iteration $t$:
+\begin{equation}\label{eq:pagerank}
+    PR_{t}(x) = \frac{1 - \lambda}{N} + \lambda\sum\limits_{{y \rightarrow x}{}}{\frac{PR_{t}(y)}{out(y)}}
+\end{equation}
+The LHS of \nameref{eq:pagerank} is the probability of being at this given node. The RHS is the probability of being at any given node, multiplied by its pagerank \textit{for the current iteration}, for all connecting vertices. The \textit{out} for each node is constant, and refers to how many edges there are pointing out from node $y$. The intuition is that a node may have a high pagerank (which makes $x$ more likely), however, if $y$ has many nodes, it reduces the chances for $x$ (which is why we divide PR over out).
+
+Note that pageranks should, in the end, sum up to 1 (or 100\%). 
+
+TODO: tougher questions: given condition X and Y, which framework would you use?
+    when use streaming vs non-streaming vs hybrid?
+TODO: a join in mapreduce
+TODO: transitioning from RDBMS to BDMS
+TODO: review lectures
