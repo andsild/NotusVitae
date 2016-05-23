@@ -101,8 +101,8 @@
   ([yshift=10pt,xshift=-5cm]current page.north|-current page text area.north) --
   ([yshift=10pt]current page.north west|-current page text area.north west) -- cycle;
 \node[font=\sffamily\bfseries\color{white},anchor=east,
-  xshift=-3.2cm,yshift=-1.0cm] at (current page.north east)
-  {\fontsize{30}{60}\selectfont Notes and definitions};
+  xshift=-6.2cm,yshift=-1.0cm] at (current page.north east)
+  {\fontsize{30}{60}\selectfont Notus Vitae};
 \end{tikzpicture}%
 }
 \newcommand\Footer{%
@@ -113,7 +113,7 @@
   ([yshift=-40pt,xshift=-3cm]current page.south|-current page text area.south) --
   ([xshift=-5cm,yshift=-10pt]current page.south|-current page text area.south) --
   ([yshift=-10pt]current page.south west|-current page text area.south west) -- cycle;
-\node[yshift=0.75cm,font=\ttfamily\bfseries\color{white}] at (current page.south) {\fontsize{20}{24}\selectfont www.stackexchange.com};
+\node[yshift=0.75cm,font=\ttfamily\bfseries\color{white}] at (current page.south) {\fontsize{20}{24}\selectfont Notes and Definitions};
 \end{tikzpicture}%
 }
 
@@ -186,14 +186,14 @@
 \begin{document}
 \include{coverpage}
     \begin{abstract}
-     An overview of algorithms, words and definitions from my studies as a 
-     computer scientist BSc, with an interest in algorithms.
+     An overview of algorithms, words and definitions from my BSc in 
+     computer science.
 
-    Note that this document is not intended to be a \textit{public friendly}
+     This document is \textbf{not} intended to be a \textit{public friendly}
     document; it is written by one author and for one author, only. But you
     are still free to read.
 
-    \huge{No guarantee is given to the correctness of the content}
+\huge{I do not guarantee that the content is correct, errors may exist}
     \end{abstract}
 \AtBeginShipoutFirst{\Header\Footer}
 \AtBeginShipoutFirst{\Header\Footer}
