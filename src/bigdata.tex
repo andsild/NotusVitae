@@ -50,6 +50,12 @@ There are four types of databanks for NoSQL DB's:
     \end{description}
 \end{definition}
 
+\begin{definition}[Uber task]\label{def:uber}
+    A term used in MapReduce to denote a job so small that pararellizing it
+    will not cause a benefit, thus leaving the job to be resolved in the same JVM 
+    as the master.
+\end{definition}
+
 \begin{definition}[BASE]\label{def:base}
     An alternative way of analyzing DBMS. It is less strict than \nameref{def:acid}.
     \begin{description}
@@ -358,8 +364,58 @@ The LHS of \nameref{eq:pagerank} is the probability of being at this given node.
 
 Note that pageranks should, in the end, sum up to 1 (or 100\%). 
 
+
+\subsection{MapReduce 2.0}
+Client asks resource-manager for resources.
+Resource-manager verifies everything is OK, and sends back info about an availible container. Client is happy, and uploads JAR.
+If the first container (appmaster) realizes this is not an \nameref{def:ubertask}, it will ask resource-manager for more buddies. It will prefer local nodes, but the resource-manager can overrule priorities if there are conflicts. Resource-mananger complies.
+Now the job is running. When finished, application managers report that we are done, 
+and releases its resources. As an extra side-note, it might be worth noting that the
+reduce-part can begin before all maps are finished (to save time).
+Failure results in re-trying the code on a different container $n$ times before giving up. Failure can either be tolerated up to $x$ percent or result in halted execution.
+AppMaster can fail and be restarted from its log files. This is done by the resource-manager. Since the resource-manager plays such a critical role, its function
+is often duplicated across several nodes to prevent having a single point-of-failure.
+All of the information processed by resource-managers are also stored in high-availibility systems like HDFS or using ZooKeeper.
+
+\subsubsection{Shuffle}
+When a Map has been performed, we need to output data to reducers. Before this happens,
+we need to \textit{shuffle}. This is sorting the data by which reducer it will end up with. This is done by having a small, circular buffer being filled up. When it reaches
+a given size it is spilled to disk. The spill files are re-iterated in the end to create
+a bigger end file. When the \textit{shuffle} is finished the \textit{copy phase} begins: take data from mapper to reducer. Upon arriving by the reducer, the data is sorted again.
+
+A nice thing to keep in mind is to leave the shuffle phase to have as much memory as possible. This will typically give the best results for MapReduce jobs.
+
+In mapreduce 1.0, map and reduce part always had the same resources (not dynamic). Also, you could only execute mapreduce jobs (not complex shuffles, etc).
+
+
+\subsubsection{Joins}
+A Join is a means for combining fields from two tables by using values common to each.
+If one table is small, we often like to distribute it to all nodes such that we 
+can quickly lookup all matching entries. If not, we need to be clever.
+
+
+\begin{definition}[Reduce-side join]\label{def:reducejoin}
+    On the map-side of things, we simply sort the data by join-key. E.g. a mapper A
+    will give reducer A' all entries with key K. Then, reducer A' performs another sort,
+    joining entries from two or more tables on K.
+\end{definition}
+
+
+\begin{definition}[Map-side join]\label{def:mapjoin}
+    Similar to \nameref{def:reducejoin}, but we avoid the second pass of sorting.
+    A few conditions are necessary to do the join in the first stage of our job.
+    \begin{enumerate}
+        \item Data is already sorted by join key inside partitions
+        \item Input datasets have same number of partitions (difficult if doing joins 
+            for $> 2$ tables).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Side-Data]\label{def:sidedata}
+    Read-only data needed by a job to process a dataset.
+\end{definition}
+
 TODO: tougher questions: given condition X and Y, which framework would you use?
     when use streaming vs non-streaming vs hybrid?
-TODO: a join in mapreduce
 TODO: transitioning from RDBMS to BDMS
 TODO: review lectures
