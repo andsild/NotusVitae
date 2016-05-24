@@ -1,0 +1,67 @@
+\section{Hardware}
+
+\subsection{Tomasulos' Algorithm}
+Allow use of multiple execution units with out-of-order execution.
+
+Efficiency is ensured by using register renaming, reservartion stations and a common data bus.  Exceptions are somehow guaranteed to be in-order in spite of being in general out-of-order.
+
+\begin{definition}[False dependency]\label{def:registerrename}
+    \begin{equation}
+        D = A + M \\
+        A = B + C
+    \end{equation}
+    In-order, the result of line 2 doesn't depend on line 1. However, out-of-order,
+    the ordering matters. This a write-after-read. We can fix the false dependency
+    by putting line 2 in a different register than $A$, e.g. $A'$.
+\end{definition}
+
+\begin{definition}[Moore's law]
+    Number of transistors doubles each year
+\end{definition}
+
+\begin{definition}[Dynamic Frequency Scaling]\label{def:dynamicscaling}
+    Down- or upgrade frequencies to control heat, conserve power or improve performance. It becomes a modification of the  power-law in \label{sec:powerdissipation}, where we can control power as $P = CV^{2}AF$, where $A$
+    is the activity level.
+\end{definition}
+
+\begin{definition}[Dynamic Voltage Scaling]\label{def:dynamicscaling}
+    Down- or upgrade frequencies to control heat, conserve power or improve performance. It becomes a modification of the  power-law in \label{sec:powerdissipation}, where we can control power as $P = CV^{2}AF$, where $A$
+    is the activity level.
+\end{definition}
+
+\begin{definition}[Race to Idle]
+    Go hard for a short time and then idle, instead of doing it all slowly.
+\end{definition}
+
+\begin{definition}[Amdahls law]
+    How much can a serial part of an application limit parallelized performance?
+\end{definition}
+
+
+\begin{definition}[Write allocate]
+    Write miss $\rightarrow$ store block in cache. Used with write-back.
+\end{definition}
+
+
+
+\begin{definition}[Super-linear speedup]
+   Rarely happens. Adding $A$ processors gives more than $A$ speedup. This can happen e.g. from cache magic (suddenly the whole application fits the cache). 
+\end{definition}
+
+
+\subsubsection{CPU Power Dissipation}\label{sec:powerdissipation}
+    $P = CV^{2}f$
+    where $C$ is capacitance, $V$ is voltage and $f$ is frequency.
+
+    We want to keep power down to reduce the amount of heat to a low.
+
+\subsubsection{Reducing Miss Rate in Caches}
+\begin{description}
+    \item[Increasing associativity] common addresses may now map to different locations rather than evicting each other over and over. Note that this requires 
+    a more substantial cache size; in L1 the penalty of extra logic makes lookups
+    too slow.
+    \item[Larger bock size:] increase block size and pretech more data. This
+    reduces compulsory misses. However, capacity and confict misses rises.
+\end{description}
+
+TODO: review the address calculation: why do we have the tag bits?

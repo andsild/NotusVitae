@@ -20,8 +20,9 @@ There are four types of databanks for NoSQL DB's:
         \newline Example: \nameref{sec:mongodb}.
     \item \textbf{key-value:} allow custom keys and custom values (e.g.\@ one document can have multiple indexes for multiple values).
         \newline Example: \nameref{sec:cassandra}, \nameref{sec:voldemort}.
-    \item \textbf{column-based:} instead of just having documents, you structure each record with columns.
-        \newline Example: HBase
+    \item \textbf{column-based:} instead of just having documents, you structure each record \textit{by their columns}. That means that you have one row for each column value $X$, e.g.\@ URL, then another row for $Y$, e.g.\@ timestamp. The neat thing about this is being able to read only the data you need, instead of processing
+        entire tuples.
+        \newline Example: \nameref{sec:HBase}
     \item \textbf{Graph-based:} cool stuff. One cool advantage is the simple queries for complex operations.
         \newline Example: \nameref{sec:neo4j}
 \end{enumerate}
@@ -32,6 +33,10 @@ There are four types of databanks for NoSQL DB's:
     when exceeding a memory threshold.
 \end{definition}
 
+\begin{definition}[Write-ahead log]\label{def:WAL}
+    WAL: write action before doing them. Important for \nameref{def:acid} properties.
+\end{definition}
+
 \begin{definition}[Consistent hashing]\label{def:consistenthashing}
     A hashing scheme that scales well. When you add keys (expand domain), you don't need to
     remap the majority of the keys as you would have to in normal hashing.
@@ -39,6 +44,7 @@ There are four types of databanks for NoSQL DB's:
     When we expand the domain of the function, it will simply result in a lower hashvalues that can
     be used directly without changing other indices.
 \end{definition}
+
 \begin{definition}[ACID]\label{def:acid}
     \begin{description}
         \item[Atomicity:] An action will either completely fail or completely succeed, nothing  in between.
@@ -50,7 +56,7 @@ There are four types of databanks for NoSQL DB's:
     \end{description}
 \end{definition}
 
-\begin{definition}[Uber task]\label{def:uber}
+\begin{definition}[Uber task]\label{def:ubertask}
     A term used in MapReduce to denote a job so small that pararellizing it
     will not cause a benefit, thus leaving the job to be resolved in the same JVM 
     as the master.
@@ -177,8 +183,19 @@ For security reasons, GFS also obfuscates its data with randomization algorithms
 \subsubsection{HDFS}\label{sec:HDFS}
 Very similar to \nameref{sec:GFS}. It was intended to be open-source alternative to GFS.\@
 It can now support more nodes and has different security/permissions model, often from POSIX.
+Users of \nameref{sec:HBase} often store info in HDFS.
 
-Consumed by HBase?
+An interesting concept is that data is considered read-only. Thus, deletions are
+done by inserting a \textit{tombstone marker} to indicate that the data is dead.
+
+\subsubsection{HBase}\label{sec:HBase}
+While \nameref{sec:GFS} and MapReduce was great, no one in Big Data
+had real-time access to data. Enter HBase. Column-oriented file storage.
+HBase provides \textit{strict consistency}, i.e.\@ no reordering of instructions.
+
+Uses ZooKeeper to track nodes. There should be one master alive at all times.
+If an application loses nodes (misses heartbeats), associated nodes are deleted.
+Master nodes does load balancing.
 
 \subsubsection{Voldemort}\label{sec:voldemort}
 \epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
@@ -387,7 +404,6 @@ A nice thing to keep in mind is to leave the shuffle phase to have as much memor
 
 In mapreduce 1.0, map and reduce part always had the same resources (not dynamic). Also, you could only execute mapreduce jobs (not complex shuffles, etc).
 
-
 \subsubsection{Joins}
 A Join is a means for combining fields from two tables by using values common to each.
 If one table is small, we often like to distribute it to all nodes such that we 
@@ -415,7 +431,10 @@ can quickly lookup all matching entries. If not, we need to be clever.
     Read-only data needed by a job to process a dataset.
 \end{definition}
 
+
+\subsubsection{Denormalization, Duplication and Intelligen Keys}\label{sec:DDI}
 TODO: tougher questions: given condition X and Y, which framework would you use?
     when use streaming vs non-streaming vs hybrid?
 TODO: transitioning from RDBMS to BDMS
 TODO: review lectures
+TODO:  compare yarn to zookeeper? (see hbase for more about zookeeper)
