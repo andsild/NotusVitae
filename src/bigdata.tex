@@ -1,4 +1,5 @@
-\section{Big Data}
+\section{Big Data} It can do so in various ways
+(location- or spatial awareness, etc).
 Data is aquired by sensor, simulations or feeds. Can we filter or compress the feed?
 Can we trust the sensors (are they faulty?)
 Information extraction: seeing structure in data, amending it where necesessary.
@@ -16,7 +17,7 @@ Since NoSQL is inherently less structured, its queries are simpler, often a mini
 
 There are four types of databanks for NoSQL DB's:
 \begin{enumerate}
-    \item \textbf{Document-based:} store a document and an ID, query by the ID.
+    \item \textbf{Document-based:} store a document and an ID, query by the ID.\@
         \newline Example: \nameref{sec:mongodb}.
     \item \textbf{key-value:} allow custom keys and custom values (e.g.\@ one document can have multiple indexes for multiple values).
         \newline Example: \nameref{sec:cassandra}, \nameref{sec:voldemort}.
@@ -34,13 +35,13 @@ There are four types of databanks for NoSQL DB's:
 \end{definition}
 
 \begin{definition}[Write-ahead log]\label{def:WAL}
-    WAL: write action before doing them. Important for \nameref{def:acid} properties.
+    WAL:\@ write action before doing them. Important for \nameref{def:acid} properties.
 \end{definition}
 
 \begin{definition}[Consistent hashing]\label{def:consistenthashing}
     A hashing scheme that scales well. When you add keys (expand domain), you don't need to
     remap the majority of the keys as you would have to in normal hashing.
-    This can be thought of as extending a simple hashing algorithm $h(x) = mod k$.
+    This can be thought of as extending a simple hashing algorithm $h(x) = \mod k$.
     When we expand the domain of the function, it will simply result in a lower hashvalues that can
     be used directly without changing other indices.
 \end{definition}
@@ -63,7 +64,7 @@ There are four types of databanks for NoSQL DB's:
 \end{definition}
 
 \begin{definition}[BASE]\label{def:base}
-    An alternative way of analyzing DBMS. It is less strict than \nameref{def:acid}.
+    An alternative way of analyzing DBMS.\@ It is less strict than \nameref{def:acid}.
     \begin{description}
         \item[Basic Availibility] database should work most of the time
         \item[Soft-state] replicas don't always have to be consistent
@@ -112,6 +113,14 @@ Hence, achieving all three letters is not possible in this case.
 \begin{definition}[At-most-once ingestion]\label{def:atmostonce}
     Every message will be sent, but at most one time.
     There is a possibility of duplicates.
+\end{definition}
+
+\begin{definition}[Fault Tolerance]
+    In Big Data, there are two types of failure that can occur
+    \begin{description}
+        \item[Soft:] unexpected errors, such as null values or code error
+        \item[Hard:] loss of nodes, etc.
+    \end{description}
 \end{definition}
 
 \begin{definition}[Exactly once ingestion]\label{def:exactlyonce}
@@ -184,8 +193,15 @@ For security reasons, GFS also obfuscates its data with randomization algorithms
 Very similar to \nameref{sec:GFS}. It was intended to be open-source alternative to GFS.\@
 It can now support more nodes and has different security/permissions model, often from POSIX.
 Users of \nameref{sec:HBase} often store info in HDFS.
+Each block has two files, one for metadata, and one for the data itself.
 
-An interesting concept is that data is considered read-only. Thus, deletions are
+Namenodes contain info about where datanodes are. This lookup table in-memory.
+Datanodes get to know namenodes by handshake. Namenodes never contact datanodes, they only reply
+to heartbeats.
+Critical components for the namenode are the journal and checkpoint data.
+These are stored redundantly. Also, the namenode itself has redundant entities like the backup nodes.
+
+An interesting concept is that data is considered immutable (appends are allowed). Thus, deletions are
 done by inserting a \textit{tombstone marker} to indicate that the data is dead.
 
 \subsubsection{HBase}\label{sec:HBase}
@@ -195,7 +211,11 @@ HBase provides \textit{strict consistency}, i.e.\@ no reordering of instructions
 
 Uses ZooKeeper to track nodes. There should be one master alive at all times.
 If an application loses nodes (misses heartbeats), associated nodes are deleted.
-Master nodes does load balancing.
+Master nodes does load balancing.  Split are done by dividing in two.
+
+No complex queries are supported. Only calls to API. 
+
+HBase is good for scientific applications and analysis over all data.
 
 \subsubsection{Voldemort}\label{sec:voldemort}
 \epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
@@ -211,6 +231,10 @@ however, be adjusted. Often, however, it is left to the client, who receives mul
 copies of data if there is a risk of concurrent writes having corrupted a value.
 What is interesting is that they do not satisfy all
 \nameref{def:acid} properties; data isolation is not ensured. 
+
+To make it more ACIDic, you can explicitly ask for flushes on written data.
+
+Balancers move data to achieve more utilization. Data availibility is taken into consideration.
 
 Voldemort is different than e.g. HBase in that they focus on having a large
 amount of writes in their systems.  In Hbase this is not prioritized,
@@ -239,12 +263,14 @@ Some examples are geospatial queries, range queries and MapReduce. The latter is
 executed as a javascript code query, a nifty feature of MongoDB.
 
 One other nifty feature of MongoDB is autosharding. As long as you provide clusters
-and computers, MongoDB is capable of balancing the load for you.
+and computers, MongoDB is capable of balancing the load for you. It can do so in various ways
+(location- or spatial awareness, etc).
 
 A downside of MongoDB (andBDMS in general) is that joins
 aren't supported natively. 
 
 With replicas, MongoDB always selectes a primary as the main provider for data.
+Only the primary is written to, then information is propagated.
 
 MongoDB compresses its data.
 
@@ -438,3 +464,5 @@ TODO: tougher questions: given condition X and Y, which framework would you use?
 TODO: transitioning from RDBMS to BDMS
 TODO: review lectures
 TODO:  compare yarn to zookeeper? (see hbase for more about zookeeper)
+TODO:  how do you sample for counting distinct elements?
+    (fjajolet-martin)
