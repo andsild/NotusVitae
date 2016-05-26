@@ -27,6 +27,8 @@ There are four types of databanks for NoSQL DB's:
         \newline Example: \nameref{sec:neo4j}
 \end{enumerate}
 
+\subsection{Definitions}
+
 \begin{definition}[Log-structured Merge Tree]\label{def:LSM}
     (LSM) A data-structure optimized for indexed access with a high insert volume.
     It typically stores a lot of data in key-value form in-memory, and flushes out
@@ -134,6 +136,8 @@ If $AGE$ is indexed, we could make estimates like  this in $O(1)$.
     or splitting per 5 years, etc.
 \end{definition}
 
+\subsection{Q & A's}
+
 
 Q:\@ how can a join be affected by whether or not we sort the output?
 \newline A:\@ When we do JOINS, we lookup keys from table X and Y. We put together keys from e.g. Y into table X. Therefore, table X needs to be either sorted or use some form of hashing scheme so that we can efficiently find the key in X that matches the key in Y.
@@ -167,6 +171,44 @@ Q:\@ Explain a sliding window in streaming systems
 \newline A:\@ Iterating over windows at a time. Entries are  iterated mutiple times since they
 will occur in multiple slides. Old data falls outside of the window because it is no longer relevant.
 
+\subsection{Misc}
+\subsubsection{Yet Another Resource Negotiator}\label{sec:YARN}
+YARN has a resource manager per cluster. Inside each each cluster there are multiple
+node managers. The node managers manage containers, which is the equivalent of 
+a process.
+
+Clients can make resource requests, asking for locality of nodes or a given amount of memory.
+This is stated up front, but can also be changed dynamically.
+
+Allocation can be per-user, per-session or interchanged between users.
+Per-user is often used in MapReduce, where the client is given a set of nodes
+that are used once, and then released.
+A per-session is used for iterative jobs (common in e.g. \nameref{sec:spark}), so that
+after finishing the first stage of a job, the same nodes are allocated for the second iteration as well.
+The third is more appropriate if you for example have many jobs from different companies or applications
+and want to fix or avoid allocation errors (giving each company a set of nodes, for example).
+Also common for long-term jobs that go for several days and/or months.
+
+Comparing YARN to MapReduce 1, we see a bigger separation between entities. There 
+is no single jobtracker: its job is separated into resource manager, application masters
+and timeline servers. The improved structure allows them to scale more, provide higher
+availibility (eliminating/reducing single points of failure), utilize resources more effectively,
+and do multitenancy. The latter means that you can have multiple jobs on the same clusters. Furhtermore,
+it is no longer just MapReduce jobs that are executed, but other frameworks like Spark and Storm enter the scene.
+
+YARN has three schedulers. There is FIFO, Capacity and Fair schedulers.
+FIFO is simple to configure but doesn't scale well with large clusters.
+Capacity retains simplicity: it provides each user with a small, reserverd amount of resources.
+This pool of resources is seen as a small and private FIFO queue. If availible, the job will be upgraded
+with more resources to do its computations. Capacity is a good scheduling algorithm for multi-company uses
+of a WSC datacenter.  Fair scheduler dynamically allocates resources to jobs.
+When a single job is on the cluster, it receives full resource utilization. When another job comes in,
+it receives half of the resources, and so on.
+
+
+
+
+\subsection{File Systems}
 \subsubsection{Google File System}\label{sec:GFS}
 One of the first file systems to scale with big data. The main idea is to replicate data
 exensively to provide high availibility and reduce transmission costs from having to send data on-demand.
@@ -188,6 +230,49 @@ Users of \nameref{sec:HBase} often store info in HDFS.
 An interesting concept is that data is considered read-only. Thus, deletions are
 done by inserting a \textit{tombstone marker} to indicate that the data is dead.
 
+\subsection{Big Data Management Systems (BDMS)}
+\subsubsection{AsterixDB}\label{sec:asterixdb}
+Like all other BDMS, AsterixDB comes with its own superflous words to describe
+normal things. The top-level node is called a \textit{dataverse}. Other papers describe
+dataverses as databases. Unlike other BDMS, AsterixDB has a strict type policy,
+which means that it will do type-checking on that data inserted into a dataverse.
+It is possible, however, to make a loose definition of type, thus allowing random data
+to enter the dataverse (naturally called having ``wiggle room'').
+
+Instead of using JSON, AsterixDB uses something called ADM: an
+extension of JSON. Keep in mind that it is still possible to have strict
+requirements for the structure of JSON data. 
+
+All data-records have a key. Keys can be composite or optimized for fuzzy string search.
+Each dataset has a $B^{+}$-tree with key-value pairs.
+
+AsterixDB can read non-indexed data, e.g.\@ loading a CSV-file. This will be mounted read-only.
+This helps them read data-feeds just as well as data from e.g.\@ HDFS. However, AsterixDB does not operate
+directly on the stream directly, it requires structuring data before queries are executed.
+The neat benefit from this is that AsterixDB hides complexity; quering a feed is exactly
+the same as quering a stored dataset from a developer point-of-view.
+
+Continuing in the BDMS-framework fashion, AsterixDB defines its own query language.
+AQL is similar to XQuery (for XML), except they claim AQL is simpler. AQL is compiled down to algebricks
+which can be optimized. The output is a (often parallel) Hyracks job.
+
+Keys are stored as 2-way \nameref{def:LSM}, which opens up for rapid insertions 
+(aka dealing with high ingestion).
+
+AsterixDB supports transactions and is thus ACID-compliant.
+
+
+
+\subsubsection{Cassandra}\label{sec:cassandra}
+Developed at Facebook for inbox search.
+High throughput, but at the price of high write and read latency.
+Nodes are independent, but connected to all other nodes.
+
+Key-value ish, however, the value is highly structured (unlike other big data
+management systems).  Very scalable, as mostBDMS are.
+Uses \nameref{def:consistenthashing} to do so, and has different modes for replication
+such as ``rack aware'' and ``datacenter aware'' schemes.
+
 \subsubsection{HBase}\label{sec:HBase}
 While \nameref{sec:GFS} and MapReduce was great, no one in Big Data
 had real-time access to data. Enter HBase. Column-oriented file storage.
@@ -197,27 +282,11 @@ Uses ZooKeeper to track nodes. There should be one master alive at all times.
 If an application loses nodes (misses heartbeats), associated nodes are deleted.
 Master nodes does load balancing.
 
-\subsubsection{Voldemort}\label{sec:voldemort}
-\epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
+\subsubsection{Neo4j}\label{sec:neo4j}
+Intuitively cool, Neo4j is a graph database. It is \nameref{def:acid} compliant (notably, unlike the systems discussed above it has support for transactions).
+Queries are simple, even for complex joins. Unlike EER diagrams (which Neo4j might be
+similar to), vertices may have no type and relationships are directed.
 
-Used for LinkedIn and their data. It provides a data-store with key-value
-pairs. This is simple to deal with, but eliminates possibilities for comlex
-queries, foreign keys, triggers, etc.  Values can be either JSON or whatever format the user desires.
-The hashmaps can also be in-memory, meaning they're fast.
-
-Alike many otherBDMS, Voldemort focuses more on AP than
-consistency (see \nameref{def:captheorem}). The level of consistency can,
-however, be adjusted. Often, however, it is left to the client, who receives multiple
-copies of data if there is a risk of concurrent writes having corrupted a value.
-What is interesting is that they do not satisfy all
-\nameref{def:acid} properties; data isolation is not ensured. 
-
-Voldemort is different than e.g. HBase in that they focus on having a large
-amount of writes in their systems.  In Hbase this is not prioritized,
-henceforth it is slow. Also, with the use of hashmaps, their data is inherently
-more unstructured.
-
-Voldemort has low latency, but not the best throughput (like Cassandra).
 
 \subsubsection{MongoDB}\label{sec:mongodb}
 \epigraph{MongoDB (from hu\textbf{mongo}us)}{Wikipedia}
@@ -256,50 +325,17 @@ however, in MongoDB there is a chance that you are able to remove the item from 
 it to the customer. If this happens, you are not \nameref{def:acid} at a higher level, although you have \nameref{def:acid} at document level. The property failing is (like Vodlemort) isolation.
 In regards to \nameref{def:captheorem}, MongoDB offers eventual consistency
 
-\subsubsection{Cassandra}\label{sec:cassandra}
-Developed at Facebook for inbox search.
-High throughput, but at the price of high write and read latency.
-Nodes are independent, but connected to all other nodes.
+\subsubsection{Spark}\label{sec:spark}
+Arguably better for analytics than queries. This is because it primarily works on 
+\nameref{sec:HDFS}.
 
-Key-value ish, however, the value is highly structured (unlike other big data
-management systems).  Very scalable, as mostBDMS are.
-Uses \nameref{def:consistenthashing} to do so, and has different modes for replication
-such as ``rack aware'' and ``datacenter aware'' schemes.
+One of Spark's genius concepts is to create small subsets of data seen as read-only objects with lazy evaluation.
+This means we can track \textit{lineage} and restore data upon failure. Also, their \textit{resilient distributed datasets} (RDD) are great for pararell and iterative executions of data.
+This is seen for example by \textit{persisting} RDDs, saving RDD-state and re-using them in several computations.
+Persistance can be done in-memory, to disk or both. Persisted RDD are immutable to ensure consistency.
+This is not a feature seen in e.g.\@ distributed shared memory (DSM). The advantage for the latter, however,
+is that modifying data is easier.
 
-\subsubsection{Neo4j}\label{sec:neo4j}
-Intuitively cool, Neo4j is a graph database. It is \nameref{def:acid} compliant (notably, unlike the systems discussed above it has support for transactions).
-Queries are simple, even for complex joins. Unlike EER diagrams (which Neo4j might be
-similar to), vertices may have no type and relationships are directed.
-
-\subsubsection{AsterixDB}\label{sec:asterixdb}
-Like all other BDMS, AsterixDB comes with its own superflous words to describe
-normal things. The top-level node is called a \textit{dataverse}. Other papers describe
-dataverses as databases. Unlike other BDMS, AsterixDB has a strict type policy,
-which means that it will do type-checking on that data inserted into a dataverse.
-It is possible, however, to make a loose definition of type, thus allowing random data
-to enter the dataverse (naturally called having ``wiggle room'').
-
-Instead of using JSON, AsterixDB uses something called ADM: an
-extension of JSON. Keep in mind that it is still possible to have strict
-requirements for the structure of JSON data. 
-
-All data-records have a key. Keys can be composite or optimized for fuzzy string search.
-Each dataset has a $B^{+}$-tree with key-value pairs.
-
-AsterixDB can read non-indexed data, e.g.\@ loading a CSV-file. This will be mounted read-only.
-This helps them read data-feeds just as well as data from e.g.\@ HDFS. However, AsterixDB does not operate
-directly on the stream directly, it requires structuring data before queries are executed.
-The neat benefit from this is that AsterixDB hides complexity; quering a feed is exactly
-the same as quering a stored dataset from a developer point-of-view.
-
-Continuing in the BDMS-framework fashion, AsterixDB defines its own query language.
-AQL is similar to XQuery (for XML), except they claim AQL is simpler. AQL is compiled down to algebricks
-which can be optimized. The output is a (often parallel) Hyracks job.
-
-Keys are stored as 2-way \nameref{def:LSM}, which opens up for rapid insertions 
-(aka dealing with high ingestion).
-
-AsterixDB supports transactions and is thus ACID-compliant.
 
 
 \subsubsection{Storm}\label{sec:storm}
@@ -321,56 +357,36 @@ Storm has a summingbird that can optimize queries for you.
 
 Storm has \nameref{def:atleastonce} and \nameref{def:atmostonce}. The former is ensured
 by adding ``acker'' bolts to tuples outputted from a spout. This is done by appending
-an ackerbolt to the topology and a 64-bit field-value to each tuple. The latter is
+an ackerbolt to the topology and a 64-bit field-value to each tuple. If the ack-value
+isn't received after a given amount of time, it is replayed. The latter is
 ensured by default if \nameref{def:atleastonce} is disabled.
 
 
-\subsubsection{Yet Another Resource Negotiator}\label{sec:YARN}
-YARN has a resource manager per cluster. Inside each each cluster there are multiple
-node managers. The node managers manage containers, which is the equivalent of 
-a process.
-
-Clients can make resource requests, asking for locality of nodes or a given amount of memory.
-This is stated up front, but can also be changed dynamically.
-
-Allocation can be per-user, per-session or interchanged between users.
-Per-user is often used in MapReduce, where the client is given a set of nodes
-that are used once, and then released.
-A per-session is used for iterative jobs (common in e.g. \nameref{sec:spark}), so that
-after finishing the first stage of a job, the same nodes are allocated for the second iteration as well.
-The third is more appropriate if you for example have many jobs from different companies or applications
-and want to fix or avoid allocation errors (giving each company a set of nodes, for example).
-Also common for long-term jobs that go for several days and/or months.
-
-Comparing YARN to MapReduce 1, we see a bigger separation between entities. There 
-is no single jobtracker: its job is separated into resource manager, application masters
-and timeline servers. The improved structure allows them to scale more, provide higher
-availibility (eliminating/reducing single points of failure), utilize resources more effectively,
-and do multitenancy. The latter means that you can have multiple jobs on the same clusters. Furhtermore,
-it is no longer just MapReduce jobs that are executed, but other frameworks like Spark and Storm enter the scene.
-
-YARN has three schedulers. There is FIFO, Capacity and Fair schedulers.
-FIFO is simple to configure but doesn't scale well with large clusters.
-Capacity retains simplicity: it provides each user with a small, reserverd amount of resources.
-This pool of resources is seen as a small and private FIFO queue. If availible, the job will be upgraded
-with more resources to do its computations. Capacity is a good scheduling algorithm for multi-company uses
-of a WSC datacenter.  Fair scheduler dynamically allocates resources to jobs.
-When a single job is on the cluster, it receives full resource utilization. When another job comes in,
-it receives half of the resources, and so on.
 
 
+\subsubsection{Voldemort}\label{sec:voldemort}
+\epigraph{It is basically just a big, distributed, persistent, fault-tolerant hash table}{Internet}
 
-\subsubsection{Spark}\label{sec:spark}
-Arguably better for analytics than queries. This is because it primarily works on 
-\nameref{sec:HDFS}.
+Used for LinkedIn and their data. It provides a data-store with key-value
+pairs. This is simple to deal with, but eliminates possibilities for comlex
+queries, foreign keys, triggers, etc.  Values can be either JSON or whatever format the user desires.
+The hashmaps can also be in-memory, meaning they're fast.
 
-One of Spark's genius concepts is to create small subsets of data seen as read-only objects with lazy evaluation.
-This means we can track \textit{lineage} and restore data upon failure. Also, their \textit{resilient distributed datasets} (RDD) are great for pararell and iterative executions of data.
-This is seen for example by \textit{persisting} RDDs, saving RDD-state and re-using them in several computations.
-Persistance can be done in-memory, to disk or both. Persisted RDD are immutable to ensure consistency.
-This is not a feature seen in e.g.\@ distributed shared memory (DSM). The advantage for the latter, however,
-is that modifying data is easier.
+Alike many otherBDMS, Voldemort focuses more on AP than
+consistency (see \nameref{def:captheorem}). The level of consistency can,
+however, be adjusted. Often, however, it is left to the client, who receives multiple
+copies of data if there is a risk of concurrent writes having corrupted a value.
+What is interesting is that they do not satisfy all
+\nameref{def:acid} properties; data isolation is not ensured. 
 
+Voldemort is different than e.g. HBase in that they focus on having a large
+amount of writes in their systems.  In Hbase this is not prioritized,
+henceforth it is slow. Also, with the use of hashmaps, their data is inherently
+more unstructured.
+
+Voldemort has low latency, but not the best throughput (like Cassandra).
+
+\subsection{Methods / Algorithms}
 \subsubsection{PageRank}
 Initially, give each node a rank. For example all nodes start with rank $\frac{1}{N}$, where N is the number of pages.
 Now, iterate over all the nodes, giving each node $x$ rank in iteration $t$:
@@ -431,10 +447,34 @@ can quickly lookup all matching entries. If not, we need to be clever.
     Read-only data needed by a job to process a dataset.
 \end{definition}
 
+\subsection{Comparing Frameworks}
+When do we want to choose a given API over the other? It depends.
+There are no ``one size-fits-all'' in Big Data. Furthermore, under the constraints of
+the \nameref{sec:captheorem}, most BDMS make some sort of compromise. Hence,
+the choice of API matters a great deal, as some frameworks are much more optimized
+for given problems.
+
+If you need to do a lot of writes or fetches, in general you want to choose from either
+\nameref{sec:cassandra} or \nameref{sec:voldemort}. They both have low latencies, they're simple in use. Cassandra has LSM-trees and is henceforth slightly more optimized for writes, however, the LSM-trees also means that \nameref{sec:voldemort}
+is slightly better at getting small reads. Cassandra also supports range queries, bloom filters, MapReduce, and other more complex operations. In both of these frameworks, all
+nodes are considered to be equal (no concept of master or slave nodes). This
+results in difficulty ensuring consistency, since two nodes may easily diverge
+without having a master to synchronize them.
+
+Quora has a post where they compare \nameref{sec:hbase} and \nameref{sec:cassandra}. 
+Here they say that HBase is also optimized for writes, but it takes consistency much further (with their
+strictly consistency policy). Also, HBase can take in semi-structured data, which gives
+more room for advanced queries. However, Voldemort is fast, so it can be useful
+for write-intensive applications where loosing data is not critical. Another neat thing mentioned is that Cassandra is pluggable, i.e.\@ you can replace the 
+back-ends easiler.
+
+\nameref{sec:asterixdb} has the advantage of being a complete BDMS. Thus, unlike 
+\nameref{sec:storm}, which has to be ``glued'' together with another file system
+like \nameref{sec:mongodb}, AsterixDB provides everything needed.
+
 
 \subsubsection{Denormalization, Duplication and Intelligen Keys}\label{sec:DDI}
 TODO: tougher questions: given condition X and Y, which framework would you use?
     when use streaming vs non-streaming vs hybrid?
 TODO: transitioning from RDBMS to BDMS
-TODO: review lectures
 TODO:  compare yarn to zookeeper? (see hbase for more about zookeeper)
