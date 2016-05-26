@@ -34,9 +34,6 @@
 \patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}\/}{}{} % italics 
 \makeatother
 
-% To sort the definitions:
-% awk '/^\\begin\{(definition|theorem|proof)\}/,/^\\end{(definition|theorem|proof)}/ { printf "%s\0",$0} /^\\end{definition}/ { print ""}  END {print ""}' PENSUM.tex | sort -t'\0' | tr '\0 ' '\n' 
-
 % \pagestyle{fancy}
 \pagenumbering{Roman}
 \setcounter{tocdepth}{1}
@@ -207,6 +204,7 @@
 \newgeometry{hmargin=2cm,bmargin=3cm,tmargin=4.5cm,centering}
 \chapter{Words and Definitions}
 \include{src/def/algorithm}
+\include{src/def/bigdata}
 \include{src/def/calculus}
 \include{src/def/graph}
 \include{src/def/image}
@@ -218,7 +216,7 @@
 \include{src/def/programming}
 
 \chapter{Algorithms and Methods}
-\include{src/bigdata}
+\include{src/methods/bigdata}
 \include{src/methods/algorithms}
 \include{src/methods/prog_sec}
 \include{src/methods/vim}
