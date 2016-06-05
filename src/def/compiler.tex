@@ -1,0 +1,55 @@
+\section{Compiler Technique}
+\begin{definition}[LL]\label{def:LL}
+\end{definition}
+
+\begin{definition}[Control Stack]\label{def:staticmemory}
+    Where procedure calls and returns go. Each function typically has
+    its own frame. We call such a frame for a funciton an activation record.
+\end{definition}
+
+\begin{definition}[Live Variable]\label{def:livevariable}
+    A variable which holds a value that might be read. If a value is assigned
+    to but never used again it is not in the out-set of a block in a control
+    flow graph.
+\end{definition}
+
+\begin{definition}[Static Memory]\label{def:staticmemory}
+    Where globals and metadata for programs go.
+\end{definition}
+
+\begin{definition}[Static Memory]\label{def:staticmemory}
+    Where globals and metadata for programs go. Static is always known at
+    compile time.
+\end{definition}
+
+\subsubsection{notes}
+If you can construct a table with FIRST and FOLLOW and there are no
+conflicts, grammar is $LL(1)$. That is, for a nonterminal, $FIRST(\alpha) \cap FIRST(\beta) = \emptyset$, for any pair of production-rules $\alpha$ and $\beta$. If any production rule $\alpha$ A $\xRightarrow{*} \epsilon$, then the rule extends such that $FIRST(A) \cap FOLLOW(A) = \emptyset$
+\usepackage{mathtools}
+TODO: predictive parser construction (not learning is ill advised)
+TODO: $LR(1)$ vs SLR vs LALR
+TODO: what happens if you increase the lookahead for a given parser?
+TODO: more shift/reduce \dots what is shift-shift vs reduce-reduce?
+TODO: design a proof tree
+TODO: semantic tree (?)
+TODO: consumption: can CFG express CFG? 
+
+TODO: halting problem? mentioned in slide\dots
+
+TODO: can regex be recognized by regex, DFA or NFA?
+TODO: dispatch vectors, especially with multiple inheritance
+    how are interfaces vs class inheritance?
+TODO: exam 2008; optimize code
+TODO: review PS{1,2,3,4,5,6}
+TODO: can pointers do GC?
+TODO: heap memory fragmentation?.
+TODO: process image? (draw it?)
+TODO: meet over paths? (if relevant)
+TODO: live variable (how many live at return is possible?)
+TODO: monotonicity of transfer functions, why is this useful?
+    distributivity?
+TODO: what difference does it make to have external or language-dependent feature?
+TODO: static, strong typing?
+TOOD: syntax tree?
+TODO: tiling and instructions?
+TODO: review PS6 in regards to assembly (push bsp or bbp?)
