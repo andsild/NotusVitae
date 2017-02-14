@@ -25,7 +25,6 @@
 \subsubsection{notes}
 If you can construct a table with FIRST and FOLLOW and there are no
 conflicts, grammar is $LL(1)$. That is, for a nonterminal, $FIRST(\alpha) \cap FIRST(\beta) = \emptyset$, for any pair of production-rules $\alpha$ and $\beta$ where the leftmost-derivation is different (i.e., they do not result in the same string). If any production rule $\alpha$ A $\xRightarrow{*} \epsilon$, then the rule extends such that $FIRST(A) \cap FOLLOW(A) = \emptyset$
-\usepackage{mathtools}
 TODO: predictive parser construction (not learning is ill advised)
 TODO: $LR(1)$ vs SLR vs LALR
 TODO: what happens if you increase the lookahead for a given parser?
